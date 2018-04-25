@@ -1,14 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {Routes, RouterModule} from "@angular/router";
-import {SuiModule} from 'ng2-semantic-ui';
+import { Routes, RouterModule } from "@angular/router";
+import { SuiModule } from 'ng2-semantic-ui';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InjectionToken } from '@angular/core';
+import { AuthGuard } from './guards/auth.guard';
 
-import { AuthGuard } from './auth.guard';
-
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { MainComponent } from './main/main.component';
-import { UserService } from './user.service';
+import { AppComponent } from './components/app.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainComponent } from './components/main/main.component';
+import { UserService } from './services/user.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationApiUrl, WebAPIUrl } from './injection-tokens';
 
 
 const routes: Routes = [
@@ -19,6 +23,7 @@ const routes: Routes = [
  ];
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,12 +32,27 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     SuiModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
   providers: [
     AuthGuard,
-    UserService
+    UserService,
+    AuthenticationService,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptorService,
+    //   multi: true
+    // },
+    {
+      provide: AuthenticationApiUrl,
+      useValue: "http://localhost:52805/api/token/"
+    },
+    {
+      provide: WebAPIUrl,
+      useValue: "http://localhost:53927/api/Devices/"
+    }
   ],
   bootstrap: [AppComponent]
 })
