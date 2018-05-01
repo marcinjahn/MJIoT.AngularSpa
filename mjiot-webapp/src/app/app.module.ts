@@ -5,6 +5,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InjectionToken } from '@angular/core';
 import { AuthGuard } from './guards/auth.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './components/app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     SuiModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
   providers: [

@@ -1,8 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/toPromise';
 import { AuthenticationApiUrl } from '../injection-tokens';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class AuthenticationService {
@@ -18,27 +19,25 @@ export class AuthenticationService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
 
-    console.log('POST for token');
-    console.log(this.authApiUrl);
+    return new Promise((resolve, reject) => {
+      this.http.post<any>(this.authApiUrl, postBody, { headers: headers })
+      .subscribe(token => {
+          if (token) {
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              localStorage.setItem('currentUser', token);
+              resolve(true);
+          }
+        },
+        error => {
+          resolve(false);
+        }
+      )
 
-    var request = this.http.get('https://jsonplaceholder.typicode.com/posts/1')
-      .map(res => {
-        console.log(res);
-      }
-    );
+    });
+  }
 
-    return this.http.post<any>(this.authApiUrl, postBody, { headers: headers })
-            .map(user => {
-              console.log('INSIDE');
-              debugger
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
- 
-                return user;
-            });
+  logout() {
+
   }
 
 }
