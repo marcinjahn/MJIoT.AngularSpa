@@ -1,0 +1,25 @@
+:host {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    background-image: url("../../../assets/login-bg.jpg");
+    background-repeat: repeat;
+}
+
+#login-box {
+    margin-top: 100px;
+    max-width: 400px;
+}
+
+#login-box > form {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#login-box > form > .input {
+    margin-bottom: 20px;
+}

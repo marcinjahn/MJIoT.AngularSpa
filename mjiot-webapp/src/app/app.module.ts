@@ -14,13 +14,14 @@ import { UserService } from './services/user.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthenticationApiUrl, WebAPIUrl } from './injection-tokens';
+import { BrandBarComponent } from './brand-bar/brand-bar.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
   { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  {path: '**', component: MainComponent}
+  { path: '**', component: MainComponent }
  ];
 
 
@@ -29,7 +30,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    MainComponent
+    MainComponent,
+    BrandBarComponent
   ],
   imports: [
     BrowserModule,

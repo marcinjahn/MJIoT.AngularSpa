@@ -1,0 +1,16 @@
+:host {
+
+    padding: 10px;
+
+    background: #191919;
+    color: white;
+}
+
+#main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#sidebar-swich {
+    margin-right: 10px;
+}

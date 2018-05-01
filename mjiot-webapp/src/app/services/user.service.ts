@@ -5,7 +5,7 @@ export class UserService {
 
   constructor() { }
 
-  private localStorageKey : string = "mjIoTApiToken";
+  private localStorageKey : string = "mjiotToken";
 
   isLoggedId() : boolean {
     if (this.getToken()) {

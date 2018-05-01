@@ -1,19 +1,21 @@
-<form [formGroup]="loginForm" (ngSubmit)="onLoginClicked()" novalidate>
-    <div class="ui left icon input" [ngClass]="{'error': loginForm.controls.userName.invalid && loginForm.controls.userName.touched}">
-        <input formControlName="userName" type="text" placeholder="User Name" required>
-        <i class="user circle icon"></i>
-    </div>
-
-    <div class="ui left icon input" [ngClass]="{'error': loginForm.controls.password.invalid && loginForm.controls.password.touched}">
-        <input formControlName="password" type="text" placeholder="Password" required>
-        <i class="shield alternate icon"></i>
-    </div>
-
-    <button type="submit" class="ui teal animated button" [ngClass]="{'disabled': loginForm.controls.userName.invalid || loginForm.controls.password.invalid}">
-        <div class="visible content">Login</div>
-        <div class="hidden content">
-            <i class="right arrow icon"></i>
-        </div>
-    </button>
-</form>
+<div id="login-box" class="ui segment raised" [ngClass]="{'loading': waitingForLogin, 'red': wrongCredentials}">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginClicked()" novalidate>
+            <div class="ui left icon input" [ngClass]="{'error': loginForm.controls.userName.invalid && loginForm.controls.userName.touched}">
+                <input formControlName="userName" type="text" placeholder="User Name" required>
+                <i class="user circle icon"></i>
+            </div>
+        
+            <div class="ui left icon input" [ngClass]="{'error': loginForm.controls.password.invalid && loginForm.controls.password.touched}">
+                <input formControlName="password" type="text" placeholder="Password" required>
+                <i class="shield alternate icon"></i>
+            </div>
+        
+            <button type="submit" class="ui teal animated button" [ngClass]="{'disabled': loginForm.controls.userName.invalid || loginForm.controls.password.invalid}">
+                <div class="visible content">Login</div>
+                <div class="hidden content">
+                    <i class="right arrow icon"></i>
+                </div>
+            </button>
+    </form>
+</div>
 <!-- <pre>{{loginForm.value | json}}</pre> -->
