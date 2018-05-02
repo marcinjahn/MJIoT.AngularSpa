@@ -1,0 +1,11 @@
+:host {
+    flex: 1;
+    position: relative;
+}
+
+#sidebar-switch {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: black;
+}

@@ -44,11 +44,11 @@ const routes: Routes = [
     AuthGuard,
     UserService,
     AuthenticationService,
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptorService,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
     {
       provide: AuthenticationApiUrl,
       useValue: "http://localhost:52805/api/token/"

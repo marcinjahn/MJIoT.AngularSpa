@@ -37,7 +37,7 @@ export class AuthenticationService {
   }
 
   logout() {
-
+    localStorage.removeItem('mjiotToken');
   }
 
 }
