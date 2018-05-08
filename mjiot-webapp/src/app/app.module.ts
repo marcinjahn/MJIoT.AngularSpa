@@ -9,19 +9,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './components/app.component';
 import { LoginComponent } from './components/login/login.component';
-import { MainComponent } from './components/main/main.component';
+import { DevicesComponent } from './components/devices/devices.component';
 import { UserService } from './services/user.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthenticationApiUrl, WebAPIUrl } from './injection-tokens';
-import { BrandBarComponent } from './brand-bar/brand-bar.component';
+import { BrandBarComponent } from './components/brand-bar/brand-bar.component';
+import { DeviceInfoApiService } from './services/device-info-api.service';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
-  { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'devices', pathMatch: 'full' },
+  { path: 'devices', component: DevicesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '**', component: MainComponent }
+  { path: '**', component: DevicesComponent }
  ];
 
 
@@ -30,7 +31,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    MainComponent,
+    DevicesComponent,
     BrandBarComponent
   ],
   imports: [
@@ -44,6 +45,7 @@ const routes: Routes = [
     AuthGuard,
     UserService,
     AuthenticationService,
+    DeviceInfoApiService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
