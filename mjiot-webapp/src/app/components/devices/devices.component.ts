@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DeviceInfoApiService } from '../../services/device-info-api.service';
 import { ListenerDataDto } from '../../models/dtos/listener-data-dto';
 import { DeviceConnectionCondition } from '../../enums/device-connection-condition.enum';
+import { DeviceInfoDto } from '../../models/dtos/device-info-dto';
 
 @Component({
   selector: 'app-main',
@@ -10,11 +11,20 @@ import { DeviceConnectionCondition } from '../../enums/device-connection-conditi
 })
 export class DevicesComponent implements OnInit {
 
-  constructor( private deviceInfoApi: DeviceInfoApiService ) { }
+  constructor( private deviceInfoApi: DeviceInfoApiService ) {
+    this.devicesPromise = this.deviceInfoApi.getDevices(false, false, false);
+    let tempDevicesPromise = this.deviceInfoApi.getDevices(false, true, false);
+    tempDevicesPromise.then(
+     result => {
+      this.devicesPromise = tempDevicesPromise;
+     }
+    );
+   }
+
+  devicesPromise: Promise<any>;
 
   async ngOnInit() {
-    let res = await this.deviceInfoApi.getDevices();
-    console.log(res);
+    // this.devices = await this.deviceInfoApi.getDevices();
 
     // let res2 = await this.deviceInfoApi.setListeners(7, 5, [new ListenerDataDto(8, 3, DeviceConnectionCondition.NoCondition, null)]);
     // console.log(res2);

@@ -1,0 +1,7 @@
+<div id="main-container">
+  <h1 class="ui header">Configured connections</h1>
+  <div id="connections-container">
+    <app-single-connection *ngFor="let connection of connectionsPromise | async" [connection]="connection"></app-single-connection>
+  </div>
+  
+</div>

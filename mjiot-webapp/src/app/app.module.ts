@@ -16,11 +16,16 @@ import { AuthenticationService } from './services/authentication.service';
 import { AuthenticationApiUrl, WebAPIUrl } from './injection-tokens';
 import { BrandBarComponent } from './components/brand-bar/brand-bar.component';
 import { DeviceInfoApiService } from './services/device-info-api.service';
+import { DevicesTableComponent } from './components/devices-table/devices-table.component';
+import { ConnectionsComponent } from './components/connections/connections.component';
+import { SingleConnectionComponent } from './components/single-connection/single-connection.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'devices', pathMatch: 'full' },
   { path: 'devices', component: DevicesComponent, canActivate: [AuthGuard] },
+  { path: 'connections', component: ConnectionsComponent, canActivate: [AuthGuard] },
+  { path: 'liveData', component: DevicesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', component: DevicesComponent }
  ];
@@ -32,7 +37,10 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     DevicesComponent,
-    BrandBarComponent
+    BrandBarComponent,
+    DevicesTableComponent,
+    ConnectionsComponent,
+    SingleConnectionComponent
   ],
   imports: [
     BrowserModule,

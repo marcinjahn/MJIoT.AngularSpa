@@ -1,0 +1,40 @@
+<div id="main-container" class="ui horizontal segments">
+  <div class="ui black segment">
+    <h5 class="ui header inline-display">{{connection.Sender.PropertyName}}</h5>
+    of
+    <h4 class="ui header inline-display">{{connection.Sender.DeviceName}}</h4>
+  </div>
+
+  <div class="ui black segment">
+    <span *ngIf="connection.Filter == 0">=</span>
+    <span *ngIf="connection.Filter == 1">GREATER</span>
+    <span *ngIf="connection.Filter == 2">GREATER=</span>
+    <span *ngIf="connection.Filter == 3">LESS</span>
+    <span *ngIf="connection.Filter == 4">LESS=</span>
+    <span *ngIf="connection.Filter == 5">!=</span>
+    <span *ngIf="connection.Filter == 6">NO CONDITION</span>
+
+    <span *ngIf="connection.Filter != 6">{{connection.FilterValue}}</span>
+  </div>
+
+  <div class="ui black segment">
+    <span *ngIf="connection.Calculation == 0">Proportional</span>
+    <span *ngIf="connection.Calculation == 1">+</span>
+    <span *ngIf="connection.Calculation == 2">-</span>
+    <span *ngIf="connection.Calculation == 3">*</span>
+    <span *ngIf="connection.Calculation == 4">/</span>
+    <span *ngIf="connection.Calculation == 5">NOT</span>
+    <span *ngIf="connection.Calculation == 6">AND</span>
+    <span *ngIf="connection.Calculation == 7">OR</span>
+    <span *ngIf="connection.Calculation == 8">NO CALCULATION</span>
+
+    <span *ngIf="connection.Calculation != 8">{{connection.CalculationValue}}</span>
+
+  </div>
+
+  <div class="ui black segment">
+      <h5 class="ui header inline-display">{{connection.Listener.PropertyName}}</h5>
+      of
+      <h4 class="ui header inline-display">{{connection.Listener.DeviceName}}</h4>
+  </div>
+</div>

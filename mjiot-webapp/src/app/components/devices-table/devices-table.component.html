@@ -1,0 +1,50 @@
+<!-- <table class="ui selectable inverted table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th class="right aligned">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>John</td>
+      <td>Approved</td>
+      <td class="right aligned">None</td>
+    </tr>
+    <tr>
+      <td>Jamie</td>
+      <td>Approved</td>
+      <td class="right aligned">Requires call</td>
+    </tr>
+    <tr>
+      <td>Jill</td>
+      <td>Denied</td>
+      <td class="right aligned">None</td>
+    </tr>
+  </tbody>
+</table> -->
+
+<table class="ui inverted table loading">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Online</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let device of devices">
+        <td>{{ device.Id }}</td>
+        <td>{{ device.Name }}</td>
+        <td>{{ device.DeviceType }}</td>
+        <td>
+          <i *ngIf="device.IsConnected === null" class="notched circle loading icon"></i>
+          <i *ngIf="device.IsConnected == true" class="green check icon"></i>
+          <i *ngIf="device.IsConnected == false" class="red times icon"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+ 

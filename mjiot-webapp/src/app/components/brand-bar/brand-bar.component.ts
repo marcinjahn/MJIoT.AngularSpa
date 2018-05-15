@@ -20,4 +20,12 @@ export class BrandBarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  devicesClicked(): void {
+    this.router.navigate(['/devices']);
+  }
+
+  connectionsClicked(): void {
+    this.router.navigate(['/connections']);
+  }
+
 }

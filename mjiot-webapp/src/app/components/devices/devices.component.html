@@ -1,1 +1,10 @@
-DEVICES COMPONENT
+<div id="main-container">
+    <div id="left-part" class="centered-in-column">
+        <h1 class="ui header">Your devices</h1>
+        <app-devices-table [devices]="devicesPromise | async"></app-devices-table>
+    </div>
+
+    <div id="right-part" class="centered-in-column">
+
+    </div>
+</div>

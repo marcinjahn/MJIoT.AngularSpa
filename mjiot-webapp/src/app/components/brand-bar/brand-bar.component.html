@@ -1,9 +1,9 @@
 <div id="main-container">
   <div class="ui inverted menu">
     <div class="header item">MJIoT</div>
-    <a *ngIf="userService.isLoggedId()" class="item active">Devices</a>
-    <a *ngIf="userService.isLoggedId()" class="item">Connections</a>
-    <a *ngIf="userService.isLoggedId()" class="item">Live Data</a>
+    <a *ngIf="userService.isLoggedId()" (click)="devicesClicked()" class="item active">Devices</a>
+    <a *ngIf="userService.isLoggedId()" (click)="connectionsClicked()" class="item">Connections</a>
+    <a *ngIf="userService.isLoggedId()" (click)="liveDataClicked()" class="item">Live Data</a>
     <div class="right menu">
       <a class="item">Help</a>
       <a *ngIf="userService.isLoggedId()" (click)="logoutClicked()" class="item">Log Out</a>
