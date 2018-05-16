@@ -10,9 +10,9 @@
 </div> -->
 
 <div id="main-container">
-    <div id="left-part" class="centered-in-column">
+    <div id="left-part" >
         <h3 class="ui top attached header inverted">
-            Your devices
+            Your devices <div *ngIf="devicesFetched" class="ui teal circular label">{{devicesAmount}}</div>
         </h3>
         <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
             <app-devices-table [devices]="devicesPromise | async"></app-devices-table>

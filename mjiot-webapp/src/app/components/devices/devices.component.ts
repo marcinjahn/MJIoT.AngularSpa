@@ -13,7 +13,10 @@ export class DevicesComponent implements OnInit {
 
   constructor( private deviceInfoApi: DeviceInfoApiService ) {
     this.devicesPromise = this.deviceInfoApi.getDevices(false, false, false);
-    this.devicesPromise.then(res => this.devicesFetched = true);
+    this.devicesPromise.then(res => {
+      this.devicesFetched = true;
+      this.devicesAmount = res.length;
+    });
     let tempDevicesPromise = this.deviceInfoApi.getDevices(false, true, false);
     tempDevicesPromise.then(
      result => {
@@ -24,6 +27,8 @@ export class DevicesComponent implements OnInit {
 
   devicesPromise: Promise<any>;
   devicesFetched: boolean;
+
+  devicesAmount: number;
 
   async ngOnInit() {
     // this.devices = await this.deviceInfoApi.getDevices();

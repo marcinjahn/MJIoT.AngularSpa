@@ -1,23 +1,30 @@
 <div id="main-container">
+
   <h3 class="ui top attached header inverted">
-    Configured connections <a *ngIf="connectionsFetched" class="ui teal circular label">{{connectionsAmount}}</a>
+    Configured connections <div *ngIf="connectionsFetched" class="ui teal circular label">{{connectionsAmount}}</div>
   </h3>
-  <div class="ui attached segment" [ngClass]="{'loading': !connectionsFetched}">
+
+  <!-- [ngClass]="{'loading': !connectionsFetched}" -->
+  <div id="content-segment" class="ui attached segment" >
+
     <p *ngIf="!connectionsFetched">LOADING...</p>
+
     <div id="connections-container">
         <div class="ui label" *ngIf="connectionsFetched && connectionsAmount == 0">
              <h5 class="ui header"><i class="info icon"></i> You don't have any connections defined</h5>
           </div>
-      <!-- <p *ngIf="connectionsFetched && connectionsAmount == 0">You don't have any connections defined.</p> -->
       <app-single-connection *ngFor="let connection of connectionsPromise | async" [connection]="connection"></app-single-connection>
     </div>
-  </div>
-</div>
 
-<!-- <div id="main-container">
-  <h1 class="ui header">Configured connections</h1>
-  <div id="connections-container">
-    <app-single-connection *ngFor="let connection of connectionsPromise | async" [connection]="connection"></app-single-connection>
+
+    <!-- *ngIf="connectionsFetched && !newConnectionFormVisible" -->
+    <button  (click)="showNewConnectionFormClicked();" id="plus-button" class="ui basic button teal">
+      <i class="icon plus"></i>
+      Add New
+    </button>
+
   </div>
-  
-</div> -->
+
+  <app-new-connection-form [devicesAndProperties]="devicesAndProperties | async" *ngIf="newConnectionFormVisible"></app-new-connection-form>
+
+</div>

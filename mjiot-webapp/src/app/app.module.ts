@@ -19,6 +19,7 @@ import { DeviceInfoApiService } from './services/device-info-api.service';
 import { DevicesTableComponent } from './components/devices-table/devices-table.component';
 import { ConnectionsComponent } from './components/connections/connections.component';
 import { SingleConnectionComponent } from './components/single-connection/single-connection.component';
+import { NewConnectionFormComponent } from './components/new-connection-form/new-connection-form.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,8 @@ const routes: Routes = [
     BrandBarComponent,
     DevicesTableComponent,
     ConnectionsComponent,
-    SingleConnectionComponent
+    SingleConnectionComponent,
+    NewConnectionFormComponent
   ],
   imports: [
     BrowserModule,

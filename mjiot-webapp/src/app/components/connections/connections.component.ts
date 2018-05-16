@@ -8,17 +8,31 @@ import { DeviceInfoApiService } from '../../services/device-info-api.service';
 })
 export class ConnectionsComponent implements OnInit {
   connectionsPromise: Promise<any>;
+  connectionsFetched: boolean;
+  connectionsAmount: number;
+  devicesAndProperties: Promise<Array<any>>;
+  newConnectionFormVisible: boolean;
+
 
   constructor(private deviceInfoApi: DeviceInfoApiService) {
     this.connectionsPromise = this.deviceInfoApi.getConnections();
+    this.devicesAndProperties = this.deviceInfoApi.getDevices(false, false, true);
+
     this.connectionsPromise.then(res => {
       this.connectionsFetched = true;
       this.connectionsAmount = res.length;
     });
+
+    this.devicesAndProperties.then(res => {
+      console.log('devices with properties');
+      console.log(res);
+    });
+
    }
 
-   connectionsFetched: boolean;
-   connectionsAmount: number;
+  showNewConnectionFormClicked() {
+    this.newConnectionFormVisible = true;
+  }
 
   ngOnInit() {
   }
