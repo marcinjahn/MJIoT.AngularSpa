@@ -11,7 +11,14 @@ export class ConnectionsComponent implements OnInit {
 
   constructor(private deviceInfoApi: DeviceInfoApiService) {
     this.connectionsPromise = this.deviceInfoApi.getConnections();
+    this.connectionsPromise.then(res => {
+      this.connectionsFetched = true;
+      this.connectionsAmount = res.length;
+    });
    }
+
+   connectionsFetched: boolean;
+   connectionsAmount: number;
 
   ngOnInit() {
   }

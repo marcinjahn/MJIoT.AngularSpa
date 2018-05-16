@@ -1,4 +1,4 @@
-<div id="main-container" class="ui horizontal segments">
+<div id="main-container" class="ui horizontal segments" (mouseover)="deleteShown = true;" (mouseout)="deleteShown = false;">
   <div class="ui black segment">
     <h5 class="ui header inline-display">{{connection.Sender.PropertyName}}</h5>
     of
@@ -37,4 +37,14 @@
       of
       <h4 class="ui header inline-display">{{connection.Listener.DeviceName}}</h4>
   </div>
+
+  <div class="ui inverted red segment">
+      <button (click)="deleteConnectionClicked(connection.Id)" class="fluid ui red animated button">
+          <div class="visible content"><i class="times icon"></i></div>
+          <div class="hidden content">
+              Delete
+          </div>
+      </button>
+  </div>
+
 </div>

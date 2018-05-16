@@ -85,16 +85,29 @@ export class DeviceInfoApiService {
       .toPromise();
   }
 
-  setListeners(senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
+  setConnections(senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
     return this.manageListeners("SetListeners", senderDeviceId, senderPropertyId, listeners);
   }
 
-  addListeners(senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
+  addConnections(senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
     return this.manageListeners("AddListeners", senderDeviceId, senderPropertyId, listeners);
   }
 
-  removeListeners(senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
-    return this.manageListeners("RemoveListeners", senderDeviceId, senderPropertyId, listeners);
+  removeConnection(connectionId: number) {
+    let params = new HttpParams().set('connectionId', connectionId.toString());
+    return this.http.get<any>(this.webApiUrl + "RemoveConnection", { params: params })
+      .toPromise();
+  }
+
+  //DOESN'T WORK
+  removeConnections(connectionsIds: number[]) {
+    let params = new HttpParams();
+    connectionsIds.forEach(id => {
+      params = params.append('connectionsIds[]', id.toString());
+    });
+    // let params = new HttpParams().set('connectionsIds', connectionsIds);
+    return this.http.get<any>(this.webApiUrl + "RemoveConnections", { params: params })
+      .toPromise();
   }
 
   private manageListeners(method: string, senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
