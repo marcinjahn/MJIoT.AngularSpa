@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DeviceInfoApiService } from '../../services/device-info-api.service';
-import { ListenerDataDto } from '../../models/dtos/listener-data-dto';
-import { DeviceConnectionCondition } from '../../enums/device-connection-condition.enum';
-import { DeviceInfoDto } from '../../models/dtos/device-info-dto';
 
 @Component({
   selector: 'app-main',

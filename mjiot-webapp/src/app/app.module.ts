@@ -20,6 +20,7 @@ import { DevicesTableComponent } from './components/devices-table/devices-table.
 import { ConnectionsComponent } from './components/connections/connections.component';
 import { SingleConnectionComponent } from './components/single-connection/single-connection.component';
 import { NewConnectionFormComponent } from './components/new-connection-form/new-connection-form.component';
+import { ConnectionConfigsService } from './services/connection-configs.service';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
     UserService,
     AuthenticationService,
     DeviceInfoApiService,
+    ConnectionConfigsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

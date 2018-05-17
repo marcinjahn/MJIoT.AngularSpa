@@ -1,77 +1,77 @@
 <div id="main-container">
-    <pre>{{form.value.sender.device | json}}</pre>
-  <form [formGroup]="form" (ngSubmit)="onSaveClicked()" novalidate class="ui form">
-    <h4 class="ui dividing header">Sender</h4>
-    <div class="two fields" formGroupName="sender">
-      <div class="field">
-        <label>Device</label>
-        <select class="ui fluid dropdown" formControlName="device">
-          <option *ngFor="let device of devicesAndProperties" [ngValue]="device">{{device.Name}}</option>
-        </select>
-      </div>
-      <div class="field">
-          <label>Property</label>
-          <select class="ui fluid dropdown" formControlName="property">
-            <option *ngFor="let property of form.value.sender.device.Properties" [ngValue]="property">{{property.Name}}</option>
-
+  <h3 class="ui top attached header inverted">
+      New connection wizard
+  </h3>
+  <div class="ui attached segment">
+    <form [formGroup]="form" (ngSubmit)="onSaveClicked()" novalidate class="ui form">
+      <h4 class="ui dividing header">Sender</h4>
+      <div class="two fields" formGroupName="sender">
+        <div class="field">
+          <label>Device</label>
+          <select class="ui fluid dropdown" formControlName="device">
+            <option *ngFor="let device of devicesAndProperties" [ngValue]="device">{{device.Name}}</option>
           </select>
-      </div>
-    </div>
-
-    <h4 class="ui dividing header">Listener</h4>
-    <div class="two fields" formGroupName="listener">
-      <div class="field">
-        <label>Device</label>
-        <select class="ui fluid dropdown" formControlName="device">
-          <option *ngFor="let device of devicesAndProperties" [ngValue]="device">{{device.Name}}</option>
-        </select>
-      </div>
-      <div class="field">
-          <label>Property</label>
-          <select class="ui fluid dropdown" formControlName="property">
-            <option *ngFor="let property of form.value.listener.device.Properties" [ngValue]="property">{{property.Name}}</option>
-
-          </select>
-      </div>
-    </div>
-
-    <h4 class="ui dividing header">Filter</h4>
-    <div class="two fields" formGroupName="filter">
-      <div class="field">
-        <label>Type</label>
-        <select class="ui fluid dropdown" formControlName="type">
-          <option value="">State</option>
-          <option value="AL">Alabama</option>
-          <option value="AK">Alaska</option>
-        </select>
-      </div>
-      <div class="field">
-          <label>Value</label>
-          <input type="text" formControlName="value">
-      </div>
-    </div>
-
-    <h4 class="ui dividing header">Calculation</h4>
-    <div class="two fields" formGroupName="calculation">
-      <div class="field">
-        <label>Type</label>
-        <select class="ui fluid dropdown" formControlName="type">
-          <option value="">State</option>
-          <option value="AL">Alabama</option>
-          <option value="AK">Alaska</option>
-        </select>
-      </div>
-      <div class="field">
-          <label>Value</label>
-          <input type="text" formControlName="value">
-      </div>
-    </div>
-
-    <button type="submit" class="ui teal animated button">
-        <div class="visible content">Save</div>
-        <div class="hidden content">
-            <i class="save icon"></i>
         </div>
-    </button>
-  </form>
+        <div class="field" [ngClass]="{'disabled': senderDevice.value == ''}">
+            <label>Property</label>
+            <select class="ui fluid dropdown" formControlName="property">
+              <option *ngFor="let property of senderDevice.value.Properties" [ngValue]="property">{{property.Name}}</option>
+            </select>
+        </div>
+      </div>
+  
+      <h4 class="ui dividing header">Listener</h4>
+      <div class="two fields" formGroupName="listener">
+        <div class="field">
+          <label>Device</label>
+          <select class="ui fluid dropdown" formControlName="device">
+            <option *ngFor="let device of devicesAndProperties" [ngValue]="device">{{device.Name}}</option>
+          </select>
+        </div>
+        <div class="field" [ngClass]="{'disabled': listenerDevice.value == ''}">
+            <label>Property</label>
+            <select class="ui fluid dropdown" formControlName="property">
+              <option *ngFor="let property of listenerDevice.value.Properties" [ngValue]="property">{{property.Name}}</option>
+  
+            </select>
+        </div>
+      </div>
+  
+      <h4 class="ui dividing header">Filter</h4>
+      <div class="two fields" formGroupName="filter">
+        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+          <label>Type</label>
+          <select class="ui fluid dropdown" formControlName="type">
+            <option *ngFor="let filterType of filterTypes" [ngValue]="filterType">{{filterType.displayName}}</option>
+          </select>
+        </div>
+        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+            <label>Value</label>
+            <input type="text" formControlName="value">
+        </div>
+      </div>
+  
+      <h4 class="ui dividing header">Calculation</h4>
+      <div class="two fields" formGroupName="calculation">
+        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+          <label>Type</label>
+          <select class="ui fluid dropdown" formControlName="type">
+            <option *ngFor="let calculationType of calculationTypes" [ngValue]="calculationType">{{calculationType.displayName}}</option>
+          </select>
+        </div>
+        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+            <label>Value</label>
+            <input type="text" formControlName="value">
+        </div>
+      </div>
+  
+      <button type="submit" class="ui teal animated button">
+          <div class="visible content">Save</div>
+          <div class="hidden content">
+              <i class="save icon"></i>
+          </div>
+      </button>
+    </form>
+  </div>
+    <!-- <pre>{{form.value.sender.device | json}}</pre> -->
 </div>

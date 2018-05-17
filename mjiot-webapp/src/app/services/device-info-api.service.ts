@@ -1,10 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { WebAPIUrl } from './../injection-tokens';
-import { ListenerDataDto } from '../models/dtos/listener-data-dto';
-import { SetListenersDto } from '../models/dtos/set-listeners-dto';
-import { DeviceInfoDto } from '../models/dtos/device-info-dto';
-import { ListenersWithSenderPropertyDto } from '../models/dtos/listeners-with-sender-property-dto';
+import { ConnectionInfo } from '../models/dtos/connection-info';
 
 @Injectable()
 export class DeviceInfoApiService {
@@ -85,12 +82,12 @@ export class DeviceInfoApiService {
       .toPromise();
   }
 
-  setConnections(senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
-    return this.manageListeners("SetListeners", senderDeviceId, senderPropertyId, listeners);
+  setConnections(connections: ConnectionInfo[]) {
+    return this.manageConnections("SetConnections", connections);
   }
 
-  addConnections(senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
-    return this.manageListeners("AddListeners", senderDeviceId, senderPropertyId, listeners);
+  addConnections(connections: ConnectionInfo[]) {
+    return this.manageConnections("AddConnections", connections);
   }
 
   removeConnection(connectionId: number) {
@@ -110,13 +107,13 @@ export class DeviceInfoApiService {
       .toPromise();
   }
 
-  private manageListeners(method: string, senderDeviceId: number, senderPropertyId: number, listeners: ListenerDataDto[]) {
-    let postBody = new SetListenersDto(senderDeviceId, senderPropertyId, listeners);
+  private manageConnections(method: string, connections: ConnectionInfo[]) {
+
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
 
-    return this.http.post<any>(this.webApiUrl + method, postBody, { headers: headers })
+    return this.http.post<any>(this.webApiUrl + method, connections, { headers: headers })
       .toPromise();
   }
 

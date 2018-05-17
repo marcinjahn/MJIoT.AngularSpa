@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { DeviceInfoDto } from '../../models/dtos/device-info-dto';
 
 @Component({
   selector: 'app-devices-table',
