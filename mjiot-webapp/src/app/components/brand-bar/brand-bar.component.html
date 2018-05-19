@@ -1,12 +1,34 @@
+<ng-template let-popup #helpPopup>
+    <div class="header">MJIoT Help</div>
+    <div class="content">
+        MJIoT is the IoT solution developed as a master thesis project at Technical University in Łódź, Poland.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.
+
+    </div>
+</ng-template>
+
+
+
 <div id="main-container">
-  <div class="ui inverted menu">
-    <div class="header item">MJIoT</div>
-    <a *ngIf="userService.isLoggedId()" (click)="devicesClicked()" class="item active">Devices</a>
-    <a *ngIf="userService.isLoggedId()" (click)="connectionsClicked()" class="item">Connections</a>
-    <a *ngIf="userService.isLoggedId()" (click)="liveDataClicked()" class="item">Live Data</a>
-    <div class="right menu">
-      <a class="item">Help</a>
-      <a *ngIf="userService.isLoggedId()" (click)="logoutClicked()" class="item">Log Out</a>
+
+  <div class="ui segment" style="border-radius: 0;">
+    <div class="ui secondary stackable menu" >
+      <div class="header item">MJIoT</div>
+      <a *ngIf="userService.isLoggedId()" (click)="devicesClicked()" class="item violet" [ngClass]="{'active': router.url == '/devices'}">
+        <i class="microchip icon"></i>Devices
+      </a>
+      <a *ngIf="userService.isLoggedId()" (click)="connectionsClicked()" class="item blue" [ngClass]="{'active': router.url == '/connections'}">
+        <i class="sitemap icon"></i>Connections
+      </a>
+      <a *ngIf="userService.isLoggedId()" (click)="liveDataClicked()" class="item purple" [ngClass]="{'active': router.url == '/live-data'}">
+        <i class="chart area icon"></i>Live Data
+      </a>
+      <div class="right menu">
+        <a class="item" suiPopup [popupTemplate]="helpPopup" popupTrigger="outsideClick" [popupPlacement]="right">Help</a>
+        <a *ngIf="userService.isLoggedId()" (click)="logoutClicked()" class="item">Log Out</a>
+      </div>
     </div>
   </div>
+
 </div>
+

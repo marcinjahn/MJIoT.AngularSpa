@@ -15,23 +15,33 @@ export class ConnectionsComponent implements OnInit {
 
 
   constructor(private deviceInfoApi: DeviceInfoApiService) {
-    this.connectionsPromise = this.deviceInfoApi.getConnections();
     this.devicesAndProperties = this.deviceInfoApi.getDevices(false, false, true);
-
-    this.connectionsPromise.then(res => {
-      this.connectionsFetched = true;
-      this.connectionsAmount = res.length;
-    });
 
     this.devicesAndProperties.then(res => {
       console.log('devices with properties');
       console.log(res);
     });
 
-   }
+    this.fetchConnections();
+  }
 
-  showNewConnectionFormClicked() {
+  fetchConnections(): void {
+    this.connectionsPromise = this.deviceInfoApi.getConnections();
+    this.connectionsPromise.then(res => {
+      this.connectionsFetched = true;
+      this.connectionsAmount = res.length;
+    });
+  }
+
+  showNewConnectionFormClicked(): void {
     this.newConnectionFormVisible = true;
+  }
+
+  connectionsChanged(data): void {
+    this.newConnectionFormVisible = false;
+    this.connectionsFetched = false;
+
+    this.fetchConnections();
   }
 
   ngOnInit() {

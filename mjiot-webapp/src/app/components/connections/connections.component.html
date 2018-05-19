@@ -5,26 +5,61 @@
   </h3>
 
   <!-- [ngClass]="{'loading': !connectionsFetched}" -->
-  <div id="content-segment" class="ui attached segment" >
+  <div id="content-segment" class="ui attached segment" [ngClass]="{'loading': !connectionsFetched}">
 
-    <p *ngIf="!connectionsFetched">LOADING...</p>
+    <!-- <p *ngIf="!connectionsFetched">LOADING...</p> -->
 
     <div id="connections-container">
         <div class="ui label" *ngIf="connectionsFetched && connectionsAmount == 0">
-             <h5 class="ui header"><i class="info icon"></i> You don't have any connections defined</h5>
-          </div>
-      <app-single-connection *ngFor="let connection of connectionsPromise | async" [connection]="connection"></app-single-connection>
+          <h5 class="ui header"><i class="info icon"></i> You don't have any connections defined</h5>
+        </div>
+
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th>
+                Sender
+                <i class="question circle outline icon" suiPopup popupInverted popupText="The controller property and device it belongs to" [popupPlacement]="bottom"></i>
+              </th>
+              <th>
+                Filter
+                <i class="question circle outline icon" suiPopup popupInverted popupText="A rule that can block data flow between devices in some cases" [popupPlacement]="bottom"></i>
+              </th>
+              <th>
+                Calculation
+                <i class="question circle outline icon" suiPopup popupInverted popupText="Allows to modify the data before it gets to the listener" [popupPlacement]="bottom"></i>
+              </th>
+              <th>
+                Listener
+                <i class="question circle outline icon" suiPopup popupInverted popupText="The controlled property and device it belongs to" [popupPlacement]="bottom"></i>
+              </th>
+              <th>
+                Delete
+                <i class="question circle outline icon" suiPopup popupInverted popupText="Delete the logical connection between the two devices" [popupPlacement]="bottom"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr app-single-connection class="center aligned" *ngFor="let connection of connectionsPromise | async" [connection]="connection" (connectionDeleted)="connectionsChanged($event)"></tr>
+          </tbody>
+        </table>
+
     </div>
 
 
     <!-- *ngIf="connectionsFetched && !newConnectionFormVisible" -->
-    <button  (click)="showNewConnectionFormClicked();" id="plus-button" class="ui basic button teal">
+    <button *ngIf="!newConnectionFormVisible" (click)="showNewConnectionFormClicked();" id="plus-button" class="ui basic button teal">
       <i class="icon plus"></i>
       Add New
     </button>
 
   </div>
 
-  <app-new-connection-form [devicesAndProperties]="devicesAndProperties | async" *ngIf="newConnectionFormVisible"></app-new-connection-form>
+  <app-new-connection-form 
+    (connectionAdded)="connectionsChanged($event)" 
+    (closeButtonClicked)="newConnectionFormVisible = false"
+    [devicesAndProperties]="devicesAndProperties | async" 
+    *ngIf="newConnectionFormVisible">
+  </app-new-connection-form>
 
 </div>

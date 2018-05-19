@@ -107,13 +107,11 @@ export class DeviceInfoApiService {
       .toPromise();
   }
 
-  private manageConnections(method: string, connections: ConnectionInfo[]) {
-
-
+  private manageConnections(action: string, connections: ConnectionInfo[]) {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
 
-    return this.http.post<any>(this.webApiUrl + method, connections, { headers: headers })
+    return this.http.post<any>(this.webApiUrl + action, connections, { headers: headers })
       .toPromise();
   }
 

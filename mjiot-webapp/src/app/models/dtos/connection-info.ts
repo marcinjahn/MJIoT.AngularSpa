@@ -3,9 +3,9 @@ import { CalendarView } from "ng2-semantic-ui/dist";
 
 export class ConnectionInfo {
 
-    constructor(senderDeviceId: number, senderProeprtyId: number, listenerDeviceId: number, listenerPropertyId: number,
+    constructor(senderDeviceId: number, senderPropertyId: number, listenerDeviceId: number, listenerPropertyId: number,
                 filterTypeEnum: number, filterValue: string, calculationTypeEnum: number, calculationValue: string) {
-        this.Sender = new DevicePropertyPair(senderDeviceId, senderProeprtyId);
+        this.Sender = new DevicePropertyPair(senderDeviceId, senderPropertyId);
         this.Listener = new DevicePropertyPair(listenerDeviceId, listenerPropertyId);
         this.Filter = filterTypeEnum;
         this.FilterValue = filterValue;

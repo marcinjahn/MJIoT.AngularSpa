@@ -1,6 +1,9 @@
 <div id="main-container">
   <h3 class="ui top attached header inverted">
-      New connection wizard
+      New connection wizard 
+      <span id="close-button" (click)="closeButtonClicked.emit(true)">
+        <i class="times circle icon" [ngClass]="color" (mouseover)="color='red'" (mouseout)="color=''"></i>
+      </span>
   </h3>
   <div class="ui attached segment">
     <form [formGroup]="form" (ngSubmit)="onSaveClicked()" novalidate class="ui form">
@@ -9,13 +12,13 @@
         <div class="field">
           <label>Device</label>
           <select class="ui fluid dropdown" formControlName="device">
-            <option *ngFor="let device of devicesAndProperties" [ngValue]="device">{{device.Name}}</option>
+            <option *ngFor="let device of getSenderDevices()" [ngValue]="device">{{device.Name}}</option>
           </select>
         </div>
         <div class="field" [ngClass]="{'disabled': senderDevice.value == ''}">
             <label>Property</label>
             <select class="ui fluid dropdown" formControlName="property">
-              <option *ngFor="let property of senderDevice.value.Properties" [ngValue]="property">{{property.Name}}</option>
+              <option *ngFor="let property of getSenderProperties(senderDevice.value)" [ngValue]="property">{{property.Name}}</option>
             </select>
         </div>
       </div>
@@ -25,13 +28,13 @@
         <div class="field">
           <label>Device</label>
           <select class="ui fluid dropdown" formControlName="device">
-            <option *ngFor="let device of devicesAndProperties" [ngValue]="device">{{device.Name}}</option>
+            <option *ngFor="let device of getListenerDevices()" [ngValue]="device">{{device.Name}}</option>
           </select>
         </div>
         <div class="field" [ngClass]="{'disabled': listenerDevice.value == ''}">
             <label>Property</label>
             <select class="ui fluid dropdown" formControlName="property">
-              <option *ngFor="let property of listenerDevice.value.Properties" [ngValue]="property">{{property.Name}}</option>
+              <option *ngFor="let property of getListenerProperties(listenerDevice.value)" [ngValue]="property">{{property.Name}}</option>
   
             </select>
         </div>

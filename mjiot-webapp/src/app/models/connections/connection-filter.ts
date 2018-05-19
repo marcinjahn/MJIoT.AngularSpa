@@ -1,4 +1,4 @@
-import { ConnectionConfigType } from "../connection-config-type";
+import { ConnectionConfigType } from "./connection-config-type";
 
 export class ConnectionFilter {
     static equal = new ConnectionConfigType(0, "equal", "=");

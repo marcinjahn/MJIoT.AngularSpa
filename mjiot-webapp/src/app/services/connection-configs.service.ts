@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ConnectionConfigType } from '../models/connection-config-type';
+import { ConnectionConfigType } from '../models/connections/connection-config-type';
 import { ConnectionFilter } from '../models/connections/connection-filter';
 import { ConnectionCalculation } from '../models/connections/connection-calculation';
 

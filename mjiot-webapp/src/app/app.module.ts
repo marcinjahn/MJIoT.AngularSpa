@@ -27,9 +27,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'devices', pathMatch: 'full' },
   { path: 'devices', component: DevicesComponent, canActivate: [AuthGuard] },
   { path: 'connections', component: ConnectionsComponent, canActivate: [AuthGuard] },
-  { path: 'liveData', component: DevicesComponent, canActivate: [AuthGuard] },
+  { path: 'live-data', component: DevicesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '**', component: DevicesComponent }
+  { path: '**', redirectTo: 'devices' }
  ];
 
 

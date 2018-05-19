@@ -1,13 +1,3 @@
-#main-container {
-    /* display: flex;
-    flex-direction: row; */
-    margin: 5px;
-}
-
 .inline-display {
     display: inline;
-}
-
-#main-container>.segment {
-    text-align: center;
 }

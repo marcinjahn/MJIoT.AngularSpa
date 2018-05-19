@@ -1,5 +1,16 @@
-<div id="login-box" class="ui segment raised" [ngClass]="{'loading': waitingForLogin, 'red': wrongCredentials}">
-    <form [formGroup]="loginForm" (ngSubmit)="onLoginClicked()" novalidate>
+<!-- <h3 class="ui top attached header inverted">
+        Your devices <div *ngIf="devicesFetched" class="ui teal circular label">{{devicesAmount}}</div>
+    </h3>
+    <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
+        <app-devices-table [devices]="devicesPromise | async"></app-devices-table>
+    </div> -->
+
+<div id="login-box">
+    <h3 class="ui top attached header inverted">
+    User Access
+    </h3>
+    <div class="ui attached segment raised" [ngClass]="{'loading': waitingForLogin, 'red': wrongCredentials}">
+        <form [formGroup]="loginForm" (ngSubmit)="onLoginClicked()" novalidate>
             <div class="ui left icon input" [ngClass]="{'error': loginForm.controls.userName.invalid && loginForm.controls.userName.touched}">
                 <input formControlName="userName" type="text" placeholder="User Name" required>
                 <i class="user circle icon"></i>
@@ -16,5 +27,6 @@
                     <i class="right arrow icon"></i>
                 </div>
             </button>
-    </form>
+        </form>
+    </div>
 </div>

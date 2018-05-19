@@ -12,7 +12,10 @@ export class BrandBarComponent implements OnInit {
 
   constructor(private userService: UserService, private authenticationService: AuthenticationService, private router: Router) { }
 
+  activeTab: string;
+
   ngOnInit() {
+    this.activeTab = "devices";
   }
 
   logoutClicked(): void {
@@ -22,10 +25,12 @@ export class BrandBarComponent implements OnInit {
 
   devicesClicked(): void {
     this.router.navigate(['/devices']);
+    this.activeTab = "devices";
   }
 
   connectionsClicked(): void {
     this.router.navigate(['/connections']);
+    this.activeTab = "connections";
   }
 
 }

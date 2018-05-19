@@ -1,4 +1,68 @@
-<div id="main-container" class="ui horizontal segments" (mouseover)="deleteShown = true;" (mouseout)="deleteShown = false;">
+  <td>
+    <h5 class="ui header purple inline-display">{{connection.Sender.PropertyName}}</h5>
+    of
+    <h4 class="ui header blue inline-display">{{connection.Sender.DeviceName}}</h4>
+  </td>
+
+  <td>
+    <div class="ui large label" [ngClass]="{'yellow': connection.Filter != 6}">
+      <span *ngIf="connection.Filter == 0">=</span>
+      <span *ngIf="connection.Filter == 1">></span>
+      <span *ngIf="connection.Filter == 2">>=</span>
+      <span *ngIf="connection.Filter == 3">&lt;</span>
+      <span *ngIf="connection.Filter == 4">&lt;=</span>
+      <span *ngIf="connection.Filter == 5">!=</span>
+      <span *ngIf="connection.Filter == 6">None</span>
+      <div class="detail" *ngIf="connection.Filter != 6">
+        <span>{{connection.FilterValue}}</span>
+      </div>
+    </div>
+  </td>
+
+  <td>
+    <div class="ui large label" [ngClass]="{'green': connection.Calculation != 8}">
+      <span *ngIf="connection.Calculation == 0">Proportional</span>
+      <span *ngIf="connection.Calculation == 1">+</span>
+      <span *ngIf="connection.Calculation == 2">-</span>
+      <span *ngIf="connection.Calculation == 3">*</span>
+      <span *ngIf="connection.Calculation == 4">/</span>
+      <span *ngIf="connection.Calculation == 5">NOT</span>
+      <span *ngIf="connection.Calculation == 6">AND</span>
+      <span *ngIf="connection.Calculation == 7">OR</span>
+      <span *ngIf="connection.Calculation == 8">None</span>
+      <div class="detail" *ngIf="connection.Calculation != 8">
+        <span>{{connection.CalculationValue}}</span>
+      </div>
+    </div>
+  </td>
+
+  <td>
+    <h5 class="ui header purple inline-display">{{connection.Listener.PropertyName}}</h5>
+    of
+    <h4 class="ui header blue inline-display">{{connection.Listener.DeviceName}}</h4>
+  </td>
+
+  <td>
+    <button (click)="deleteConnectionClicked(connection.Id)" class="ui red animated button">
+        <div class="visible content"><i class="times icon"></i></div>
+        <div class="hidden content">
+            Delete
+        </div>
+    </button>
+  </td>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="main-container" class="ui horizontal segments" (mouseover)="deleteShown = true;" (mouseout)="deleteShown = false;">
   <div class="ui black segment">
     <h5 class="ui header inline-display">{{connection.Sender.PropertyName}}</h5>
     of
@@ -47,4 +111,4 @@
       </button>
   </div>
 
-</div>
+</div> -->
