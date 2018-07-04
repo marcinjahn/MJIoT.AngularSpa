@@ -30,9 +30,11 @@ export class NewConnectionFormComponent implements OnInit {
   filterTypes: Array<ConnectionConfigType>;
   calculationTypes: Array<ConnectionConfigType>;
 
+  
+
   constructor(private connectionConfigsService: ConnectionConfigsService, private deviceInfoApi: DeviceInfoApiService) { }
 
-  onSaveClicked() {
+  onSaveClicked(): void {
     let newConnection = new ConnectionInfo(
       this.senderDevice.value["Id"], 
       this.senderProperty.value["Id"], 
@@ -45,12 +47,12 @@ export class NewConnectionFormComponent implements OnInit {
     );
     console.log(newConnection);
 
-    this.deviceInfoApi.addConnections( [newConnection] );
-
-    this.connectionAdded.emit(true);
+    this.deviceInfoApi.addConnections( [newConnection] ).then(
+      res => this.connectionAdded.emit(true)
+    );
   }
 
-  initializeForm() {
+  initializeForm(): void {
     this.senderDevice = new FormControl('', Validators.required);
     this.senderProperty = new FormControl('', Validators.required);
     this.listenerDevice = new FormControl('', Validators.required);

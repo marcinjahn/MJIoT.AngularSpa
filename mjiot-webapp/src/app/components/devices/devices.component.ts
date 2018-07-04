@@ -18,6 +18,11 @@ export class DevicesComponent implements OnInit {
     tempDevicesPromise.then(
      result => {
       this.devicesPromise = tempDevicesPromise;
+      this.onlineDevicesAmount = 0;
+      result.forEach(element => {
+        if (element.IsConnected)
+          this.onlineDevicesAmount++;
+      });
      }
     );
    }
@@ -26,6 +31,7 @@ export class DevicesComponent implements OnInit {
   devicesFetched: boolean;
 
   devicesAmount: number;
+  onlineDevicesAmount: number;
 
   async ngOnInit() {
     // this.devices = await this.deviceInfoApi.getDevices();

@@ -6,17 +6,16 @@
 #main-container {
     height: 100%;
     width: 100%;
-    display: flex;
+    /* display: flex; */
 
     padding: 20px;
 }
 
-#left-part {
-    flex: 5;
-}
 
-#right-part {
-    flex: 3;
+#description {
+    padding: 30px;
+    font-size: 55px;
+    line-height: 60px;
 }
 
 .centered-in-column {

@@ -10,15 +10,19 @@
 </div> -->
 
 <div id="main-container">
-    <div id="left-part" >
-        <h3 class="ui top attached header inverted">
-            Your devices <div *ngIf="devicesFetched" class="ui teal circular label">{{devicesAmount}}</div>
-        </h3>
-        <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
-            <app-devices-table [devices]="devicesPromise | async"></app-devices-table>
+    <div class="ui stackable two column grid">
+        <div class="ten wide column" id="left-part">
+            <div class="shadow-box">
+                <h3 class="ui top attached header inverted">
+                    Your devices <div *ngIf="devicesFetched" class="ui teal circular label">{{devicesAmount}}</div>
+                </h3>
+                <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
+                    <app-devices-table [devices]="devicesPromise | async"></app-devices-table>
+                </div>
+            </div>
         </div>
-    </div>
-    <div id="right-part" class="centered-in-column">
-
+        <div class="six wide column" id="description" *ngIf="devicesFetched">
+            You have <b>{{devicesAmount}}</b> devices and <b>{{this.onlineDevicesAmount}}</b> of them are online.
+        </div>
     </div>
 </div>

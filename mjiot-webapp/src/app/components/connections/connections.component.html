@@ -1,14 +1,13 @@
 <div id="main-container">
 
+
+<div class="shadow-box">
+
   <h3 class="ui top attached header inverted">
     Configured connections <div *ngIf="connectionsFetched" class="ui teal circular label">{{connectionsAmount}}</div>
   </h3>
 
-  <!-- [ngClass]="{'loading': !connectionsFetched}" -->
   <div id="content-segment" class="ui attached segment" [ngClass]="{'loading': !connectionsFetched}">
-
-    <!-- <p *ngIf="!connectionsFetched">LOADING...</p> -->
-
     <div id="connections-container">
         <div class="ui label" *ngIf="connectionsFetched && connectionsAmount == 0">
           <h5 class="ui header"><i class="info icon"></i> You don't have any connections defined</h5>
@@ -54,8 +53,10 @@
     </button>
 
   </div>
+</div>
 
-  <app-new-connection-form 
+
+  <app-new-connection-form
     (connectionAdded)="connectionsChanged($event)" 
     (closeButtonClicked)="newConnectionFormVisible = false"
     [devicesAndProperties]="devicesAndProperties | async" 

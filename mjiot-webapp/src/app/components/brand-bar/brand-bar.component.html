@@ -1,14 +1,3 @@
-<ng-template let-popup #helpPopup>
-    <div class="header">MJIoT Help</div>
-    <div class="content">
-        MJIoT is the IoT solution developed as a master thesis project at Technical University in Łódź, Poland.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.
-
-    </div>
-</ng-template>
-
-
-
 <div id="main-container">
 
   <div class="ui segment" style="border-radius: 0;">
@@ -21,7 +10,7 @@
         <i class="sitemap icon"></i>Connections
       </a>
       <a *ngIf="userService.isLoggedId()" (click)="liveDataClicked()" class="item purple" [ngClass]="{'active': router.url == '/live-data'}">
-        <i class="chart area icon"></i>Live Data
+        <i class="chart area icon"></i>Properties
       </a>
       <div class="right menu">
         <a class="item" suiPopup [popupTemplate]="helpPopup" popupTrigger="outsideClick" [popupPlacement]="right">Help</a>
@@ -32,3 +21,9 @@
 
 </div>
 
+<ng-template let-popup #helpPopup>
+    <div class="header">MJIoT Help</div>
+    <div class="content">
+        MJIoT is the IoT solution developed as a master thesis project at Technical University in Łódź, Poland.
+    </div>
+</ng-template>
