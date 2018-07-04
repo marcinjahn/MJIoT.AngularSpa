@@ -5,23 +5,24 @@
   </td>
 
   <td>
-    <div class="ui large label" [ngClass]="{'yellow': connection.Filter != 6}">
-      <span *ngIf="connection.Filter == 0">=</span>
-      <span *ngIf="connection.Filter == 1">></span>
-      <span *ngIf="connection.Filter == 2">>=</span>
-      <span *ngIf="connection.Filter == 3">&lt;</span>
-      <span *ngIf="connection.Filter == 4">&lt;=</span>
-      <span *ngIf="connection.Filter == 5">!=</span>
-      <span *ngIf="connection.Filter == 6">None</span>
-      <div class="detail" *ngIf="connection.Filter != 6">
+    <div class="ui large label" [ngClass]="{'yellow': connection.Filter != 0}">
+      <span *ngIf="connection.Filter == 0">None</span>
+      <span *ngIf="connection.Filter == 1">=</span>
+      <span *ngIf="connection.Filter == 2">></span>
+      <span *ngIf="connection.Filter == 3">>=</span>
+      <span *ngIf="connection.Filter == 4">&lt;</span>
+      <span *ngIf="connection.Filter == 5">&lt;=</span>
+      <span *ngIf="connection.Filter == 6">!=</span>
+      <div class="detail" *ngIf="connection.Filter != 0">
         <span>{{connection.FilterValue}}</span>
       </div>
     </div>
   </td>
 
   <td>
-    <div class="ui large label" [ngClass]="{'green': connection.Calculation != 8}">
-      <span *ngIf="connection.Calculation == 0">Proportional</span>
+    <div class="ui large label" [ngClass]="{'green': connection.Calculation != 0}">
+      <!-- <span *ngIf="connection.Calculation == 0">Proportional</span> -->
+      <span *ngIf="connection.Calculation == 0">None</span>
       <span *ngIf="connection.Calculation == 1">+</span>
       <span *ngIf="connection.Calculation == 2">-</span>
       <span *ngIf="connection.Calculation == 3">*</span>
@@ -29,8 +30,8 @@
       <span *ngIf="connection.Calculation == 5">NOT</span>
       <span *ngIf="connection.Calculation == 6">AND</span>
       <span *ngIf="connection.Calculation == 7">OR</span>
-      <span *ngIf="connection.Calculation == 8">None</span>
-      <div class="detail" *ngIf="connection.Calculation != 8">
+
+      <div class="detail" *ngIf="connection.Calculation != 0">
         <span>{{connection.CalculationValue}}</span>
       </div>
     </div>
