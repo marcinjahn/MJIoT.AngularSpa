@@ -1,13 +1,13 @@
 import { ConnectionConfigType } from "./connection-config-type";
 
 export class ConnectionCalculation {
-    static proportional = new ConnectionConfigType(0, "proportional", "~");
-    static addition = new ConnectionConfigType(1, "addition", "+");
-    static subtraction = new ConnectionConfigType(2, "subtraction", "-");
-    static product = new ConnectionConfigType(3, "product", "*");
-    static division = new ConnectionConfigType(4, "division", "/");
-    static booleanNot = new ConnectionConfigType(5, "NOT", "NOT");
-    static booleanAnd = new ConnectionConfigType(6, "AND", "AND");
-    static booleanOr = new ConnectionConfigType(7, "OR", "OR");
-    static none = new ConnectionConfigType(8, "none", "");
+    static None = new ConnectionConfigType(0, "none", "");
+    // static proportional = new ConnectionConfigType(0, "proportional", "~");
+    static Addition = new ConnectionConfigType(1, "addition", "+");
+    static Subtraction = new ConnectionConfigType(2, "subtraction", "-");
+    static Product = new ConnectionConfigType(3, "product", "*");
+    static Division = new ConnectionConfigType(4, "division", "/");
+    static BooleanNot = new ConnectionConfigType(5, "NOT", "NOT");
+    static BooleanAnd = new ConnectionConfigType(6, "AND", "AND");
+    static BooleanOr = new ConnectionConfigType(7, "OR", "OR");
 }

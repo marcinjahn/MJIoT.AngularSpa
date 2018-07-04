@@ -8,78 +8,48 @@ export class ConnectionConfigsService {
 
   constructor() { }
 
-  getFilterTypes(senderFormat: number, listenerFormat: number): Array<ConnectionConfigType> {
+  getFilterTypes(senderFormat: number): Array<ConnectionConfigType> {
     let result: Array<ConnectionConfigType> = [];
 
     if (senderFormat == 2) {
-      result.push(ConnectionFilter.equal);
-      result.push(ConnectionFilter.greater);
-      result.push(ConnectionFilter.greaterOrEqual);
-      result.push(ConnectionFilter.less);
-      result.push(ConnectionFilter.lessOrEqual);
-      result.push(ConnectionFilter.notEqual);
-      result.push(ConnectionFilter.none);
+      result.push(ConnectionFilter.None);
+      result.push(ConnectionFilter.Equal);
+      result.push(ConnectionFilter.Greater);
+      result.push(ConnectionFilter.GreaterOrEqual);
+      result.push(ConnectionFilter.Less);
+      result.push(ConnectionFilter.LessOrEqual);
+      result.push(ConnectionFilter.NotEqual);
     }
     else {
-      result.push(ConnectionFilter.equal);
-      result.push(ConnectionFilter.notEqual);
-      result.push(ConnectionFilter.none);
+      result.push(ConnectionFilter.None);
+      result.push(ConnectionFilter.Equal);
+      result.push(ConnectionFilter.NotEqual);
     }
 
     return result;
   }
 
-  getCalculationType(senderFormat: number, listenerFormat: number): Array<ConnectionConfigType> {
+  getCalculationTypes(senderFormat: number): Array<ConnectionConfigType> {
     let result: Array<ConnectionConfigType> = [];
 
-    //number - number
-    if (senderFormat == 2 && listenerFormat == 2) {
-      result.push(ConnectionCalculation.proportional);
-      result.push(ConnectionCalculation.addition);
-      result.push(ConnectionCalculation.subtraction);
-      result.push(ConnectionCalculation.product);
-      result.push(ConnectionCalculation.division);
-      result.push(ConnectionCalculation.none);
+    //number
+    if (senderFormat == 2) {
+      result.push(ConnectionCalculation.None);
+      result.push(ConnectionCalculation.Addition);
+      result.push(ConnectionCalculation.Subtraction);
+      result.push(ConnectionCalculation.Product);
+      result.push(ConnectionCalculation.Division);
     }
-    //number - string
-    else if (senderFormat == 2 && listenerFormat == 1) {
-      result.push(ConnectionCalculation.none);
+    //boolean
+    else if (senderFormat == 0) {
+      result.push(ConnectionCalculation.None);
+      result.push(ConnectionCalculation.BooleanNot);
+      result.push(ConnectionCalculation.BooleanAnd);
+      result.push(ConnectionCalculation.BooleanOr);
     }
-    //number - boolean
-    else if (senderFormat == 2 && listenerFormat == 0) {
-      result.push(ConnectionCalculation.booleanAnd);
-      result.push(ConnectionCalculation.booleanOr);
-      result.push(ConnectionCalculation.booleanNot);
-      result.push(ConnectionCalculation.none);
-    }
-
-    //string - string
-    else if (senderFormat == 1 && listenerFormat == 1) {
-      result.push(ConnectionCalculation.none);
-    }
-    //string - number
-    else if (senderFormat == 1 && listenerFormat == 2) {
-      result.push(ConnectionCalculation.none);
-    }
-    //string - bool
-    else if (senderFormat == 1 && listenerFormat == 0) {
-      result.push(ConnectionCalculation.none);
-    }
-
-    //bool - bool
-    else if (senderFormat == 0 && listenerFormat == 0) {
-      result.push(ConnectionCalculation.booleanAnd);
-      result.push(ConnectionCalculation.booleanOr);
-      result.push(ConnectionCalculation.booleanNot);
-      result.push(ConnectionCalculation.none);
-    }
-    //bool - number
-    else if (senderFormat == 0 && listenerFormat == 2) {
-      result.push(ConnectionCalculation.none);
-    }
-    //bool - string
-    else if (senderFormat == 0 && listenerFormat == 1) {
-      result.push(ConnectionCalculation.none);
+    //string
+    else if (senderFormat == 0) {
+      result.push(ConnectionCalculation.None);
     }
 
     return result;

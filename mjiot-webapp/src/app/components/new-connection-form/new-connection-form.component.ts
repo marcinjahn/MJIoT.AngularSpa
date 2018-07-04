@@ -85,7 +85,7 @@ export class NewConnectionFormComponent implements OnInit {
     if (this.devicesAndProperties != null) {
       this.devicesAndProperties.forEach(device => {
         if (device["CommunicationType"] == 0 || device["CommunicationType"] == 2)
-        senders.push(device);
+          senders.push(device);
       });
     }
 
@@ -105,7 +105,6 @@ export class NewConnectionFormComponent implements OnInit {
 
   getSenderProperties(device: any): Array<any> {
     let result = [];
-    console.log(device);
     if (device !== null && device["Properties"] !== undefined) {
       device["Properties"].forEach(property => {
         if (property["IsSenderProperty"])
@@ -134,8 +133,8 @@ export class NewConnectionFormComponent implements OnInit {
 
   propertiesSetChanged() {
     if (this.senderProperty.value != "" && this.listenerProperty.value != "") {
-      this.filterTypes = this.connectionConfigsService.getFilterTypes(this.senderProperty.value["Format"], this.listenerProperty.value["Format"]);
-      this.calculationTypes = this.connectionConfigsService.getCalculationType(this.senderProperty.value["Format"], this.listenerProperty.value["Format"]);
+      this.filterTypes = this.connectionConfigsService.getFilterTypes(this.senderProperty.value["Format"]);
+      this.calculationTypes = this.connectionConfigsService.getCalculationTypes(this.senderProperty.value["Format"]);
     }
     console.log("SENDER");
     console.log(this.senderProperty.value);
