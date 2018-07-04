@@ -48,7 +48,7 @@ export class ConnectionConfigsService {
       result.push(ConnectionCalculation.BooleanOr);
     }
     //string
-    else if (senderFormat == 0) {
+    else if (senderFormat == 1) {
       result.push(ConnectionCalculation.None);
     }
 
