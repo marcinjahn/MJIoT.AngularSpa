@@ -1,6 +1,6 @@
 <div id="main-container">
   <h3 class="ui top attached header inverted">
-      New connection wizard 
+      New connection form 
       <span id="close-button" (click)="closeButtonClicked.emit(true)">
         <i class="times circle icon" [ngClass]="color" (mouseover)="color='red'" (mouseout)="color=''"></i>
       </span>
@@ -35,7 +35,6 @@
             <label>Property</label>
             <select class="ui fluid dropdown" formControlName="property">
               <option *ngFor="let property of getListenerProperties(listenerDevice.value)" [ngValue]="property">{{property.Name}}</option>
-  
             </select>
         </div>
       </div>
@@ -49,8 +48,10 @@
           </select>
         </div>
         <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
-            <label>Value</label>
+          <label>Value</label>
+          <div class="ui input" [ngClass]="{'disabled': filterType.value.enumValue == 0}">
             <input type="text" formControlName="value">
+          </div>
         </div>
       </div>
   
@@ -63,18 +64,20 @@
           </select>
         </div>
         <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
-            <label>Value</label>
+          <label>Value</label>
+          <div class="ui input" [ngClass]="{'disabled': calculationType.value.enumValue == 0}">
             <input type="text" formControlName="value">
+          </div>
         </div>
       </div>
   
       <button type="submit" class="ui teal animated button">
-          <div class="visible content">Save</div>
-          <div class="hidden content">
-              <i class="save icon"></i>
-          </div>
+        <div class="visible content">Save</div>
+        <div class="hidden content">
+          <i class="save icon"></i>
+        </div>
       </button>
     </form>
   </div>
-    <!-- <pre>{{form.value.sender.device | json}}</pre> -->
+    <!-- <pre>{{form.value | json}}</pre> -->
 </div>
