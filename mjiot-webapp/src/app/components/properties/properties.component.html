@@ -13,7 +13,7 @@
                     </div>
                     <div class="eight wide column">
                         <h4 class="ui dividing header">Property</h4>
-                        <div class="field">
+                        <div class="field" [ngClass]="{'disabled': deviceSelect.value == ''}">
                             <select class="ui fluid dropdown" formControlName="property">
                                 <option *ngFor="let property of properties" [ngValue]="property">{{property.Name}}</option>
                             </select>
@@ -29,14 +29,17 @@
             <div class="shadow-box">
                 <h3 class="ui top attached header inverted">History Graph</h3>
                 <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
-                        WYKRES
+                        Choose a property that is HISTORIZED to see its values in the specified time frame.
                 </div>
             </div>
         </div>
         
         <div class="six wide column">
-            <div class="ui segment" [ngClass]="{'loading': !devicesFetched}">
-                Choose one of your devices and its property to see the last value of it.
+            <div class="shadow-box">
+                <h3 class="ui top attached header inverted">Last Value</h3>
+                <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
+                    Choose one of your devices and its property to see the last value of it.
+                </div>
             </div>
         </div>
     </div>  

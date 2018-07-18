@@ -14,7 +14,8 @@ export class PropertiesComponent implements OnInit {
     this.devicesPromise.then(res => {
       this.devicesFetched = true;
       this.devices = res;
-      // console.log(res);
+      if (this.devices.length != 0)
+        this.deviceSelect.patchValue(this.devices[0]);
     });
   }
 
@@ -44,6 +45,8 @@ export class PropertiesComponent implements OnInit {
   deviceChanged() {
     console.log(this.deviceSelect);
     this.properties = this.deviceSelect.value.Properties;
+    if (this.properties.length != 0)
+      this.propertySelect.patchValue(this.properties[0]);
   }
 
   propertyChanged() {

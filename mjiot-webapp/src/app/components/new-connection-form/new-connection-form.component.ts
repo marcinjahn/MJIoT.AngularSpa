@@ -138,10 +138,10 @@ export class NewConnectionFormComponent implements OnInit {
       this.filterTypes = this.connectionConfigsService.getFilterTypes(this.senderProperty.value["Format"]);
       this.calculationTypes = this.connectionConfigsService.getCalculationTypes(this.senderProperty.value["Format"]);
     }
-    console.log("SENDER");
-    console.log(this.senderProperty.value);
-    console.log("LISTENER");
-    console.log(this.listenerProperty.value);
+    // console.log("SENDER");
+    // console.log(this.senderProperty.value);
+    // console.log("LISTENER");
+    // console.log(this.listenerProperty.value);
   }
 
 
