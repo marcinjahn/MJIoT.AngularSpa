@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeviceInfoApiService } from '../../services/device-info-api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PropertiesApiService } from '../../services/properties-api.service';
 
 @Component({
   selector: 'app-properties',
@@ -9,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class PropertiesComponent implements OnInit {
 
-  constructor(private deviceInfoApi: DeviceInfoApiService) { 
+  constructor(private deviceInfoApi: DeviceInfoApiService, private propertiesApi: PropertiesApiService) { 
     this.devicesPromise = this.deviceInfoApi.getDevices(false, false, true);
     this.devicesPromise.then(res => {
       this.devicesFetched = true;
@@ -24,6 +25,8 @@ export class PropertiesComponent implements OnInit {
 
   devices: Array<any>;
   properties: Array<any>
+
+  lastValue: string;
 
   form: FormGroup;
   deviceSelect: FormControl;
@@ -43,14 +46,20 @@ export class PropertiesComponent implements OnInit {
   }
 
   deviceChanged() {
-    console.log(this.deviceSelect);
-    this.properties = this.deviceSelect.value.Properties;
+     this.properties = this.deviceSelect.value.Properties;
     if (this.properties.length != 0)
       this.propertySelect.patchValue(this.properties[0]);
   }
 
   propertyChanged() {
-
+    this.propertiesApi.getLastValue(this.deviceSelect.value.Id, this.propertySelect.value.Name).then(data => {
+      console.log('fetched');
+      console.log(data);
+      if (data != null)
+        this.lastValue = data["PropertyValue"];
+      else
+        this.lastValue = "This property has never been set and does not contain nay value."
+    });
   }
 
   setupForm(): void {

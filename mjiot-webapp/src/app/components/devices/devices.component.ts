@@ -16,16 +16,16 @@ export class DevicesComponent implements OnInit {
     });
     let tempDevicesPromise = this.deviceInfoApi.getDevices(false, true, false);
     tempDevicesPromise.then(
-     result => {
-      this.devicesPromise = tempDevicesPromise;
-      this.onlineDevicesAmount = 0;
-      result.forEach(element => {
-        if (element.IsConnected)
-          this.onlineDevicesAmount++;
-      });
-     }
+      result => {
+        this.devicesPromise = tempDevicesPromise;
+        this.onlineDevicesAmount = 0;
+        result.forEach(element => {
+          if (element.IsConnected)
+            this.onlineDevicesAmount++;
+        });
+      }
     );
-   }
+  }
 
   devicesPromise: Promise<any>;
   devicesFetched: boolean;

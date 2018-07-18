@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { WebAPIUrl } from './../injection-tokens';
+import { WebAPIUrl } from '../injection-tokens';
 import { ConnectionInfo } from '../models/dtos/connection-info';
 
 @Injectable()
@@ -34,32 +34,6 @@ export class DeviceInfoApiService {
     return this.http.get<any>(this.webApiUrl + "GetConnections")
       .toPromise();
   }
-
-  // getDevicesWithListeners() {
-  //   // return this.http.get<any>(this.webApiUrl + "GetDevicesWithListeners")
-  //   //   .toPromise();
-  //   return new Promise ((resolve, reject) => {
-  //     this.http.get<any>(this.webApiUrl + "GetDevicesWithListeners")
-  //     .toPromise()
-  //     .then(response => {
-  //       let result: DeviceInfoDto[] = [];
-  //       response.forEach(element => {
-  //         let connectedListeners: ListenersWithSenderPropertyDto[] = [];
-  //         element["ConnectedListeners"].forEach(property => {
-  //           let propertyListeners: ListenerDataDto[] = [];
-  //           property["Listeners"].forEach(listener => {
-  //             propertyListeners.push(new ListenerDataDto(listener["DeviceId"], listener["PropertyName"], listener["Condition"], listener["ConditionValue"]))
-  //           });
-  //           connectedListeners.push(new ListenersWithSenderPropertyDto(property["PropertyName"], propertyListeners));
-  //         });
-  //         result.push(
-  //           new DeviceInfoDto(element["Id"], element["Name"], element["DeviceType"], element["IsConnected"], element["CommunicationType"], connectedListeners)
-  //         )
-  //       });
-  //       resolve(result);
-  //     });
-  //   });
-  // }
 
   getProperties(deviceId: number) {
     let params = new HttpParams().set('deviceId', deviceId.toString());

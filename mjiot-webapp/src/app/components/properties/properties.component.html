@@ -38,7 +38,8 @@
             <div class="shadow-box">
                 <h3 class="ui top attached header inverted">Last Value</h3>
                 <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
-                    Choose one of your devices and its property to see the last value of it.
+                    <div *ngIf="lastValue == null">Choose one of your devices and its property to see the last value of it.</div>
+                    <div *ngIf="lastValue != null">{{lastValue}}</div>
                 </div>
             </div>
         </div>
