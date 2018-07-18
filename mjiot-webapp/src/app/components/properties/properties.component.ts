@@ -13,22 +13,41 @@ export class PropertiesComponent implements OnInit {
     this.devicesPromise = this.deviceInfoApi.getDevices(false, false, true);
     this.devicesPromise.then(res => {
       this.devicesFetched = true;
+      this.devices = res;
+      // console.log(res);
     });
   }
 
   devicesPromise: Promise<any>;
   devicesFetched: boolean;
 
+  devices: Array<any>;
+  properties: Array<any>
+
   form: FormGroup;
   deviceSelect: FormControl;
   propertySelect: FormControl;
 
-  deviceChanged() {
+  // async getDevices() : Promise<Array<string>> {
+  //   let devices = [];
+  //   (await this.devicesPromise).forEach(element => {
+  //     devices.push(element.Name);
+  //   });
 
+  //   return devices;
+  // }
+
+  getProperties(deviceId: number) {
+    return 1;
+  }
+
+  deviceChanged() {
+    console.log(this.deviceSelect);
+    this.properties = this.deviceSelect.value.Properties;
   }
 
   propertyChanged() {
-    
+
   }
 
   setupForm(): void {

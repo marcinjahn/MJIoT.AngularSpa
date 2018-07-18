@@ -1,14 +1,26 @@
 <div id="main-container">
     <div class="shadow-box">
         <div class="ui segment" [ngClass]="{'loading': !devicesFetched}">
-            <div class="ui stackable two column grid">
-                <div class="eight wide column">
-                    DEVICE SELECT
-                </div>
-                <div class="eight wide column">
-                    PROPERTY SELECT
-                </div>
-            </div>
+            <!-- <div class="ui stackable two column grid"> -->
+                <form [formGroup]="form" novalidate class="ui form stackable two column grid">
+                    <div class="eight wide column">
+                        <h4 class="ui dividing header">Device</h4>
+                        <div class="field">
+                            <select class="ui fluid dropdown" formControlName="device">
+                                <option *ngFor="let device of devices" [ngValue]="device">{{device.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="eight wide column">
+                        <h4 class="ui dividing header">Property</h4>
+                        <div class="field">
+                            <select class="ui fluid dropdown" formControlName="property">
+                                <option *ngFor="let property of properties" [ngValue]="property">{{property.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            <!-- </div> -->
         </div>
     </div>
 
@@ -24,7 +36,7 @@
         
         <div class="six wide column">
             <div class="ui segment" [ngClass]="{'loading': !devicesFetched}">
-                WARTOŚĆ
+                Choose one of your devices and its property to see the last value of it.
             </div>
         </div>
     </div>  
