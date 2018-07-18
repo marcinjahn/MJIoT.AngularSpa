@@ -12,7 +12,7 @@ import { DevicesComponent } from './components/devices/devices.component';
 import { UserService } from './services/user.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthenticationService } from './services/authentication.service';
-import { AuthenticationApiUrl, WebAPIUrl } from './injection-tokens';
+import { AuthenticationApiUrl, WebAPIUrl, PropertiesAPIUrl } from './injection-tokens';
 import { BrandBarComponent } from './components/brand-bar/brand-bar.component';
 import { DeviceInfoApiService } from './services/device-info-api.service';
 import { DevicesTableComponent } from './components/devices-table/devices-table.component';
@@ -21,6 +21,7 @@ import { SingleConnectionComponent } from './components/single-connection/single
 import { NewConnectionFormComponent } from './components/new-connection-form/new-connection-form.component';
 import { ConnectionConfigsService } from './services/connection-configs.service';
 import { PropertiesComponent } from './components/properties/properties.component';
+import { PropertiesApiService } from './services/properties-api.service';
 
 
 const routes: Routes = [
@@ -58,6 +59,7 @@ const routes: Routes = [
     UserService,
     AuthenticationService,
     DeviceInfoApiService,
+    PropertiesApiService,
     ConnectionConfigsService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -71,7 +73,11 @@ const routes: Routes = [
     {
       provide: WebAPIUrl,
       useValue: "http://localhost:53927/api/Devices/"
-    }
+    },
+    {
+      provide: PropertiesAPIUrl,
+      useValue: "http://localhost:3000/api/"
+    },
   ],
   bootstrap: [AppComponent]
 })
