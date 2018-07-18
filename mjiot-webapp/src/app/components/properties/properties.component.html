@@ -1,0 +1,46 @@
+<div id="main-container">
+    <div class="shadow-box">
+        <div class="ui segment" [ngClass]="{'loading': !devicesFetched}">
+            <div class="ui stackable two column grid">
+                <div class="eight wide column">
+                    DEVICE SELECT
+                </div>
+                <div class="eight wide column">
+                    PROPERTY SELECT
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui stackable two column grid">
+        <div class="ten wide column">
+            <div class="shadow-box">
+                <h3 class="ui top attached header inverted">History Graph</h3>
+                <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
+                        WYKRES
+                </div>
+            </div>
+        </div>
+        
+        <div class="six wide column">
+            <div class="ui segment" [ngClass]="{'loading': !devicesFetched}">
+                WARTOŚĆ
+            </div>
+        </div>
+    </div>  
+</div>
+
+    <!-- <div class="ten wide column" id="left-part">
+        <div class="shadow-box">
+            <h3 class="ui top attached header inverted">
+                Your devices <div *ngIf="devicesFetched" class="ui teal circular label">{{devicesAmount}}</div>
+            </h3>
+            <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
+                <app-devices-table [devices]="devicesPromise | async"></app-devices-table>
+            </div>
+        </div>
+    </div>
+    <div class="six wide column" id="description" *ngIf="devicesFetched">
+        You have <b>{{devicesAmount}}</b> devices and <b>{{this.onlineDevicesAmount}}</b> of them are online.
+    </div>
+  </div> -->

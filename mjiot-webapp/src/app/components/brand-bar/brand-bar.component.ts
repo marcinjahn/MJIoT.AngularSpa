@@ -33,4 +33,9 @@ export class BrandBarComponent implements OnInit {
     this.activeTab = "connections";
   }
 
+  propertiesClicked(): void {
+    this.router.navigate(['/properties']);
+    this.activeTab = "properties";
+  }
+
 }

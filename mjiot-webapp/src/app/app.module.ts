@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
 import { SuiModule } from 'ng2-semantic-ui';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InjectionToken } from '@angular/core';
 import { AuthGuard } from './guards/auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -21,13 +20,14 @@ import { ConnectionsComponent } from './components/connections/connections.compo
 import { SingleConnectionComponent } from './components/single-connection/single-connection.component';
 import { NewConnectionFormComponent } from './components/new-connection-form/new-connection-form.component';
 import { ConnectionConfigsService } from './services/connection-configs.service';
+import { PropertiesComponent } from './components/properties/properties.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'devices', pathMatch: 'full' },
   { path: 'devices', component: DevicesComponent, canActivate: [AuthGuard] },
   { path: 'connections', component: ConnectionsComponent, canActivate: [AuthGuard] },
-  { path: 'live-data', component: DevicesComponent, canActivate: [AuthGuard] },
+  { path: 'properties', component: PropertiesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: 'devices' }
  ];
@@ -43,7 +43,8 @@ const routes: Routes = [
     DevicesTableComponent,
     ConnectionsComponent,
     SingleConnectionComponent,
-    NewConnectionFormComponent
+    NewConnectionFormComponent,
+    PropertiesComponent
   ],
   imports: [
     BrowserModule,

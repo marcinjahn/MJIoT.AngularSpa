@@ -9,7 +9,7 @@
       <a *ngIf="userService.isLoggedId()" (click)="connectionsClicked()" class="item blue" [ngClass]="{'active': router.url == '/connections'}">
         <i class="sitemap icon"></i>Connections
       </a>
-      <a *ngIf="userService.isLoggedId()" (click)="liveDataClicked()" class="item purple" [ngClass]="{'active': router.url == '/live-data'}">
+      <a *ngIf="userService.isLoggedId()" (click)="propertiesClicked()" class="item purple" [ngClass]="{'active': router.url == '/properties'}">
         <i class="chart area icon"></i>Properties
       </a>
       <div class="right menu">
