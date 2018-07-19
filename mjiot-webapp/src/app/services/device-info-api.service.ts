@@ -26,6 +26,11 @@ export class DeviceInfoApiService {
         //   )
         // });
         resolve(response);
+      },
+      error => {
+        console.log('Models API error.');
+        console.log(error);
+        reject(error);
       });
     });
   }

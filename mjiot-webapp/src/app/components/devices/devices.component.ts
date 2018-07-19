@@ -13,6 +13,9 @@ export class DevicesComponent implements OnInit {
     this.devicesPromise.then(res => {
       this.devicesFetched = true;
       this.devicesAmount = res.length;
+    },
+    error => {
+      console.log('Cannot get devices from API.');
     });
     let tempDevicesPromise = this.deviceInfoApi.getDevices(false, true, false);
     tempDevicesPromise.then(
@@ -23,8 +26,10 @@ export class DevicesComponent implements OnInit {
           if (element.IsConnected)
             this.onlineDevicesAmount++;
         });
-      }
-    );
+      },
+      error => {
+        console.log('Cannot get devices from API.');
+      });
   }
 
   devicesPromise: Promise<any>;

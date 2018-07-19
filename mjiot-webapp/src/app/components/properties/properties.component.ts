@@ -46,7 +46,7 @@ export class PropertiesComponent implements OnInit {
   }
 
   deviceChanged() {
-     this.properties = this.deviceSelect.value.Properties;
+    this.properties = this.deviceSelect.value.Properties;
     if (this.properties.length != 0)
       this.propertySelect.patchValue(this.properties[0]);
   }
@@ -59,6 +59,9 @@ export class PropertiesComponent implements OnInit {
         this.lastValue = data["PropertyValue"];
       else
         this.lastValue = "This property has never been set and does not contain nay value."
+    },
+    error => {
+      console.log('Cannot get property last value from API.');
     });
   }
 
