@@ -28,8 +28,24 @@
         <div class="ten wide column">
             <div class="shadow-box">
                 <h3 class="ui top attached header inverted">History Graph</h3>
-                <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
-                        Choose a property that is HISTORIZED to see its values in the specified time frame.
+                <div class="ui attached segment" >
+                        <!-- <div class="ui stackable two column grid">
+                            <div class="eight wide column">
+                                FROM
+                            </div>
+                            <div class="eight wide column">
+                                TO
+                            </div>
+                        </div> -->
+                    <canvas
+                        baseChart
+                        [chartType]="'line'"
+                        [datasets]="chartData"
+                   
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartClick)="onChartClick($event)">
+                    </canvas>
                 </div>
             </div>
         </div>

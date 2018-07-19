@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DeviceInfoApiService } from '../../services/device-info-api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PropertiesApiService } from '../../services/properties-api.service';
+import { DatetimeFormatterService } from '../../services/datetime-formatter.service';
+import { BooleanHistoryDataFetcher } from '../../services/boolean-history-data-fetcher.service';
+
 
 @Component({
   selector: 'app-properties',
@@ -11,6 +14,9 @@ import { PropertiesApiService } from '../../services/properties-api.service';
 export class PropertiesComponent implements OnInit {
 
   constructor(private deviceInfoApi: DeviceInfoApiService, private propertiesApi: PropertiesApiService) { 
+    this.datetimeFormatter = new DatetimeFormatterService();
+    this.booleanFetcher = new BooleanHistoryDataFetcher(this.propertiesApi);
+
     this.devicesPromise = this.deviceInfoApi.getDevices(false, false, true);
     this.devicesPromise.then(res => {
       this.devicesFetched = true;
@@ -19,6 +25,9 @@ export class PropertiesComponent implements OnInit {
         this.deviceSelect.patchValue(this.devices[0]);
     });
   }
+
+  booleanFetcher: BooleanHistoryDataFetcher;
+  datetimeFormatter: DatetimeFormatterService;
 
   devicesPromise: Promise<any>;
   devicesFetched: boolean;
@@ -52,17 +61,31 @@ export class PropertiesComponent implements OnInit {
   }
 
   propertyChanged() {
-    this.propertiesApi.getLastValue(this.deviceSelect.value.Id, this.propertySelect.value.Name).then(data => {
-      console.log('fetched');
-      console.log(data);
-      if (data != null)
-        this.lastValue = data["PropertyValue"];
-      else
-        this.lastValue = "This property has never been set and does not contain nay value."
-    },
-    error => {
-      console.log('Cannot get property last value from API.');
-    });
+    this.fetchValues();
+  }
+
+  async fetchValues() {
+    await this.fetchLastValue();
+    await this.fetchHistoricalValues();
+    
+  }
+
+  private async fetchHistoricalValues() {
+    let delegate;
+    if (this.propertySelect.value.Format == 0)
+      delegate = this.booleanFetcher;
+    else
+      delegate = this.propertiesApi;
+    let values = await delegate.getValues(this.deviceSelect.value.Id, this.propertySelect.value.Name, this.datetimeFormatter.formatDate(new Date(2018, 1, 1, 12, 0, 0, 0)), this.datetimeFormatter.formatDate(new Date()));
+    console.log(values);
+  }
+
+  private async fetchLastValue() {
+    let lastValue = await this.propertiesApi.getLastValue(this.deviceSelect.value.Id, this.propertySelect.value.Name);
+    if (lastValue != null)
+      this.lastValue = lastValue["PropertyValue"];
+    else
+      this.lastValue = "This property has never been set and does not contain any value.";
   }
 
   setupForm(): void {
@@ -79,6 +102,44 @@ export class PropertiesComponent implements OnInit {
 
     this.propertySelect.valueChanges
       .subscribe(property => this.propertyChanged());
+  }
+
+  chartOptions = {
+    responsive: true,
+    scales: {
+      xAxes: [{
+        type: 'time',
+        time: {
+          displayFormats: {
+          	'millisecond': 'MMM DD',
+            'second': 'MMM DD',
+            'minute': 'MMM DD',
+            'hour': 'MMM DD',
+            'day': 'MMM DD',
+            'week': 'MMM DD',
+            'month': 'MMM DD',
+            'quarter': 'MMM DD',
+            'year': 'MMM DD',
+          }
+        }
+      }],
+    }
+  };
+
+  chartData = [
+    { data: [{
+      x: "2017",
+      y: 1
+  }, {
+      t: "2018",
+      y: 10
+  }], label: 'Account A' }
+  ];
+
+  // chartLabels = ['03-10-2017 12:14', 'February', 'Mars', 'April'];
+
+  onChartClick(event) {
+    console.log(event);
   }
 
   ngOnInit() {

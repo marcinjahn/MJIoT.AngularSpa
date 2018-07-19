@@ -22,6 +22,8 @@ import { NewConnectionFormComponent } from './components/new-connection-form/new
 import { ConnectionConfigsService } from './services/connection-configs.service';
 import { PropertiesComponent } from './components/properties/properties.component';
 import { PropertiesApiService } from './services/properties-api.service';
+import { ChartsModule } from 'ng2-charts';
+
 
 
 const routes: Routes = [
@@ -52,6 +54,7 @@ const routes: Routes = [
     HttpClientModule,
     SuiModule,
     ReactiveFormsModule,
+    ChartsModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
   providers: [
