@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PropertiesApiService } from '../../services/properties-api.service';
 import { DatetimeFormatterService } from '../../services/datetime-formatter.service';
 import { BooleanHistoryDataFetcher } from '../../services/boolean-history-data-fetcher.service';
+import { ChartjsService } from '../../services/chartjs.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class PropertiesComponent implements OnInit {
   constructor(private deviceInfoApi: DeviceInfoApiService, private propertiesApi: PropertiesApiService) { 
     this.datetimeFormatter = new DatetimeFormatterService();
     this.booleanFetcher = new BooleanHistoryDataFetcher(this.propertiesApi);
+    this.chartJsService = new ChartjsService(this.datetimeFormatter);
 
     this.devicesPromise = this.deviceInfoApi.getDevices(false, false, true);
     this.devicesPromise.then(res => {
@@ -28,6 +30,7 @@ export class PropertiesComponent implements OnInit {
 
   booleanFetcher: BooleanHistoryDataFetcher;
   datetimeFormatter: DatetimeFormatterService;
+  chartJsService: ChartjsService;
 
   devicesPromise: Promise<any>;
   devicesFetched: boolean;
@@ -76,8 +79,9 @@ export class PropertiesComponent implements OnInit {
       delegate = this.booleanFetcher;
     else
       delegate = this.propertiesApi;
-    let values = await delegate.getValues(this.deviceSelect.value.Id, this.propertySelect.value.Name, this.datetimeFormatter.formatDate(new Date(2018, 1, 1, 12, 0, 0, 0)), this.datetimeFormatter.formatDate(new Date()));
+    let values = await delegate.getValues(this.deviceSelect.value.Id, this.propertySelect.value.Name, this.datetimeFormatter.formatDate(new Date(2018, 7, 1, 1, 0, 0, 0)), this.datetimeFormatter.formatDate(new Date()));
     console.log(values);
+    this.chartData = this.chartJsService.generateDataSet(values, this.propertySelect.value.Name);
   }
 
   private async fetchLastValue() {
