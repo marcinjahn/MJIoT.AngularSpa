@@ -37,15 +37,29 @@
                                 TO
                             </div>
                         </div> -->
-                    <canvas
+                    <canvas *ngIf="historicalValuesController.chartVisible"
                         baseChart
                         [chartType]="'line'"
-                        [datasets]="chartData"
+                        [datasets]="historicalValuesController.chartJsService.getChartData()"
                    
-                        [options]="chartOptions"
+                        [options]="historicalValuesController.chartJsService.getChartOptions()"
                         [legend]="true"
                         (chartClick)="onChartClick($event)">
                     </canvas>
+
+                    <div *ngIf="historicalValuesController.messageBoxVisible">
+                            <div class="ui message">
+                                <div class="header">
+                                    {{historicalValuesController.messageBoxContent.header}}
+                                </div>
+                                <p>{{historicalValuesController.messageBoxContent.description}}</p>
+                            </div>
+
+                    </div>
+
+                    <div *ngIf="historicalValuesController.stringDisplayVisible">
+                        {{historicalValuesController.stringDisplayContent}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,9 +67,9 @@
         <div class="six wide column">
             <div class="shadow-box">
                 <h3 class="ui top attached header inverted">Last Value</h3>
-                <div class="ui attached segment" [ngClass]="{'loading': !devicesFetched}">
+                <div class="ui attached segment center aligned" [ngClass]="{'loading': !devicesFetched}">
                     <div *ngIf="lastValue == null">Choose one of your devices and its property to see the last value of it.</div>
-                    <div *ngIf="lastValue != null">{{lastValue}}</div>
+                    <div *ngIf="lastValue != null" class="ui violet label massive">{{lastValue}}</div>
                 </div>
             </div>
         </div>

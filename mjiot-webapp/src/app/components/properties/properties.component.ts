@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DeviceInfoApiService } from '../../services/device-info-api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PropertiesApiService } from '../../services/properties-api.service';
-import { DatetimeFormatterService } from '../../services/datetime-formatter.service';
 import { BooleanHistoryDataFetcher } from '../../services/boolean-history-data-fetcher.service';
 import { ChartjsService } from '../../services/chartjs.service';
+import { DatetimeFormatterService } from '../../services/datetime-formatter.service';
 
 
 @Component({
@@ -15,9 +15,10 @@ import { ChartjsService } from '../../services/chartjs.service';
 export class PropertiesComponent implements OnInit {
 
   constructor(private deviceInfoApi: DeviceInfoApiService, private propertiesApi: PropertiesApiService) { 
-    this.datetimeFormatter = new DatetimeFormatterService();
     this.booleanFetcher = new BooleanHistoryDataFetcher(this.propertiesApi);
-    this.chartJsService = new ChartjsService(this.datetimeFormatter);
+    // this.chartJsService = new ChartjsService(this.propertiesApi.dateTimeFormatter);
+    this.historicalValuesController = new HistoricalValuesDisplayController();
+    this.historicalValuesController.displayMessage(new MessageContent("No property is selected", "Select the device and one of its historized properties to see its values."));
 
     this.devicesPromise = this.deviceInfoApi.getDevices(false, false, true);
     this.devicesPromise.then(res => {
@@ -29,8 +30,8 @@ export class PropertiesComponent implements OnInit {
   }
 
   booleanFetcher: BooleanHistoryDataFetcher;
-  datetimeFormatter: DatetimeFormatterService;
   chartJsService: ChartjsService;
+  historicalValuesController: HistoricalValuesDisplayController;
 
   devicesPromise: Promise<any>;
   devicesFetched: boolean;
@@ -44,15 +45,6 @@ export class PropertiesComponent implements OnInit {
   deviceSelect: FormControl;
   propertySelect: FormControl;
 
-  // async getDevices() : Promise<Array<string>> {
-  //   let devices = [];
-  //   (await this.devicesPromise).forEach(element => {
-  //     devices.push(element.Name);
-  //   });
-
-  //   return devices;
-  // }
-
   getProperties(deviceId: number) {
     return 1;
   }
@@ -64,32 +56,48 @@ export class PropertiesComponent implements OnInit {
   }
 
   propertyChanged() {
-    this.fetchValues();
+    this.displayValues();
   }
 
-  async fetchValues() {
-    await this.fetchLastValue();
-    await this.fetchHistoricalValues();
-    
+  async displayValues() {
+    let lastValue = await this.fetchLastValue();
+    if (lastValue != null)
+      this.lastValue = lastValue["PropertyValue"];
+    else {
+      this.lastValue = "--";
+      this.historicalValuesController.displayMessage(new MessageContent("No values are available", "Looks like this property has never been set and it does not contain any values."));
+      return;
+    }
+    if (!this.propertySelect.value.IsHistorized) {
+      this.historicalValuesController.displayMessage(new MessageContent("Selected property is not historized", "Past values of non-hisotrized properties cannot be displayed, since they are not stored by the Platform."));
+      return;
+    }
+    let values = await this.fetchHistoricalValues();
+    if (this.propertySelect.value.Format != 1)
+      this.historicalValuesController.displayNumericalValues(values, this.propertySelect.value.Name);
+    else
+      this.historicalValuesController.displayStringValues(values, this.propertySelect.value.Name);
   }
 
   private async fetchHistoricalValues() {
+    let formatter = this.propertiesApi.dateTimeFormatter;
     let delegate;
     if (this.propertySelect.value.Format == 0)
       delegate = this.booleanFetcher;
     else
       delegate = this.propertiesApi;
-    let values = await delegate.getValues(this.deviceSelect.value.Id, this.propertySelect.value.Name, this.datetimeFormatter.formatDate(new Date(2018, 7, 1, 1, 0, 0, 0)), this.datetimeFormatter.formatDate(new Date()));
+    let values = await delegate.getValues(
+      this.deviceSelect.value.Id, 
+      this.propertySelect.value.Name, 
+      formatter.formatDate(formatter.addDays(new Date(), -1)), 
+      formatter.formatDate(new Date())
+    );
     console.log(values);
-    this.chartData = this.chartJsService.generateDataSet(values, this.propertySelect.value.Name);
+    return values;
   }
 
   private async fetchLastValue() {
-    let lastValue = await this.propertiesApi.getLastValue(this.deviceSelect.value.Id, this.propertySelect.value.Name);
-    if (lastValue != null)
-      this.lastValue = lastValue["PropertyValue"];
-    else
-      this.lastValue = "This property has never been set and does not contain any value.";
+    return await this.propertiesApi.getLastValue(this.deviceSelect.value.Id, this.propertySelect.value.Name);
   }
 
   setupForm(): void {
@@ -108,38 +116,6 @@ export class PropertiesComponent implements OnInit {
       .subscribe(property => this.propertyChanged());
   }
 
-  chartOptions = {
-    responsive: true,
-    scales: {
-      xAxes: [{
-        type: 'time',
-        time: {
-          displayFormats: {
-          	'millisecond': 'MMM DD',
-            'second': 'MMM DD',
-            'minute': 'MMM DD',
-            'hour': 'MMM DD',
-            'day': 'MMM DD',
-            'week': 'MMM DD',
-            'month': 'MMM DD',
-            'quarter': 'MMM DD',
-            'year': 'MMM DD',
-          }
-        }
-      }],
-    }
-  };
-
-  chartData = [
-    { data: [{
-      x: "2017",
-      y: 1
-  }, {
-      t: "2018",
-      y: 10
-  }], label: 'Account A' }
-  ];
-
   // chartLabels = ['03-10-2017 12:14', 'February', 'Mars', 'April'];
 
   onChartClick(event) {
@@ -151,3 +127,103 @@ export class PropertiesComponent implements OnInit {
   }
 
 }
+
+
+class HistoricalValuesDisplayController {
+  constructor() {
+    this.chartJsService = new ChartjsService(new DatetimeFormatterService());
+  };
+
+  public chartJsService: ChartjsService;
+
+  public stringDisplayContent: string;
+  public messageBoxContent: MessageContent;
+
+  public chartVisible: boolean;
+  public messageBoxVisible: boolean;
+  public stringDisplayVisible: boolean;
+
+  displayMessage(message: MessageContent) {
+    //this.chartJsService.setChartData(this.chartJsService.getEmptyDataSet(message));
+    this.messageBoxContent = message;
+    this.showMessageBox();
+
+  }
+
+  displayStringValues(values: any, propertyName: string): any {
+    this.displayMessage(new MessageContent("Selected property is a string", "String properties cannot be displayed in this version of MJIoT Platform App"));
+    this.stringDisplayContent = "";
+    this.showStringDisplay();
+  }
+
+  displayNumericalValues(values: any, propertyName: string): any {
+    let dataSet = this.chartJsService.generateDataSet(values, propertyName);
+    this.chartJsService.setChartData(dataSet);
+    this.showChart();
+  }
+
+  private hideChart() {
+    this.chartVisible = false;
+    this.chartJsService.setChartData(this.chartJsService.getEmptyDataSet(""));
+  }
+
+  private hideStringDisplay() {
+    this.stringDisplayVisible = false;
+    this.stringDisplayContent = "";
+  }
+
+  private hideMessageBox() {
+    this.messageBoxVisible = false;
+    this.messageBoxContent = MessageContent.Empty();
+  }
+
+  private showChart() {
+    this.hideMessageBox();
+    this.hideStringDisplay();
+    this.chartVisible = true;
+  }
+
+  private showMessageBox() {
+    this.hideStringDisplay();
+    this.hideChart();
+    this.messageBoxVisible = true;
+  }
+
+  private showStringDisplay() {
+    this.hideChart();
+    this.hideMessageBox();
+    this.stringDisplayVisible = true;
+  }
+}
+
+class MessageContent {
+
+  constructor(header: string, description: string) {
+    this.header = header;
+    this.description = description;
+  }
+
+  static Empty(): MessageContent {
+    return new MessageContent("", "");
+  }
+  
+  private _header : string;
+  public get header() : string {
+    return this._header;
+  }
+  public set header(v : string) {
+    this._header = v;
+  }
+  
+  
+  private _description : string;
+  public get description() : string {
+    return this._description;
+  }
+  public set description(v : string) {
+    this._description = v;
+  }
+  
+}
+
+
