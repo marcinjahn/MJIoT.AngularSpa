@@ -26,4 +26,8 @@ export class DatetimeFormatterService {
     newDate.setDate(newDate.getDate() + days);
     return newDate;
   }
+
+  getReadableDate(date: string): string {
+    return this.parse(date).toLocaleString();
+  }
 }

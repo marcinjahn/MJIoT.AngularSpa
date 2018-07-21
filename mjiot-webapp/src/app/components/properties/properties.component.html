@@ -40,25 +40,28 @@
                     <canvas *ngIf="historicalValuesController.chartVisible"
                         baseChart
                         [chartType]="'line'"
-                        [datasets]="historicalValuesController.chartJsService.getChartData()"
+                        [datasets]="historicalValuesController.chartjsService.getChartData()"
                    
-                        [options]="historicalValuesController.chartJsService.getChartOptions()"
+                        [options]="historicalValuesController.chartjsService.getChartOptions()"
                         [legend]="true"
                         (chartClick)="onChartClick($event)">
                     </canvas>
 
                     <div *ngIf="historicalValuesController.messageBoxVisible">
-                            <div class="ui message">
-                                <div class="header">
-                                    {{historicalValuesController.messageBoxContent.header}}
-                                </div>
-                                <p>{{historicalValuesController.messageBoxContent.description}}</p>
+                        <div class="ui message">
+                            <div class="header">
+                                {{historicalValuesController.messageBoxContent.header}}
                             </div>
-
+                            <p>{{historicalValuesController.messageBoxContent.description}}</p>
+                        </div>
                     </div>
 
-                    <div *ngIf="historicalValuesController.stringDisplayVisible">
-                        {{historicalValuesController.stringDisplayContent}}
+                    <div class="ui tall stacked segment" *ngIf="historicalValuesController.stringDisplayVisible">
+                        <div class="ui list">
+                            <div *ngFor="let value of historicalValuesController.stringValues" class="item">
+                                <b>{{value.timestamp}}</b>: {{value.content}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@ export class ChartjsService {
       });
     });
 
-    result = [{data: result, label: label, borderColor: "#c45850"}];
+    result = [{data: result, label: label, steppedLine: true}];
     return result;
   }
 

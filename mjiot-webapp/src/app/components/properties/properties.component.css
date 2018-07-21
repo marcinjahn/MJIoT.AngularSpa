@@ -5,3 +5,12 @@
 
     padding: 20px;
 }
+
+.line-breaker {
+    white-space: pre-line;
+}
+
+.item {
+    margin-bottom: 5px;
+    font-size: 12pt;
+}

@@ -131,45 +131,45 @@ export class PropertiesComponent implements OnInit {
 
 class HistoricalValuesDisplayController {
   constructor() {
-    this.chartJsService = new ChartjsService(new DatetimeFormatterService());
+    this.chartjsService = new ChartjsService(new DatetimeFormatterService());
   };
 
-  public chartJsService: ChartjsService;
+  public chartjsService: ChartjsService;
 
-  public stringDisplayContent: string;
   public messageBoxContent: MessageContent;
+  public stringValues: Array<StringValue>
 
   public chartVisible: boolean;
   public messageBoxVisible: boolean;
   public stringDisplayVisible: boolean;
 
+
+
   displayMessage(message: MessageContent) {
-    //this.chartJsService.setChartData(this.chartJsService.getEmptyDataSet(message));
     this.messageBoxContent = message;
     this.showMessageBox();
-
   }
 
   displayStringValues(values: any, propertyName: string): any {
-    this.displayMessage(new MessageContent("Selected property is a string", "String properties cannot be displayed in this version of MJIoT Platform App"));
-    this.stringDisplayContent = "";
+    // this.displayMessage(new MessageContent("Selected property is a string", "String properties cannot be displayed in this version of MJIoT Platform App"));
+    this.stringValues = StringPropertyFormatter.format(values);
     this.showStringDisplay();
   }
 
   displayNumericalValues(values: any, propertyName: string): any {
-    let dataSet = this.chartJsService.generateDataSet(values, propertyName);
-    this.chartJsService.setChartData(dataSet);
+    let dataSet = this.chartjsService.generateDataSet(values, propertyName);
+    this.chartjsService.setChartData(dataSet);
     this.showChart();
   }
 
   private hideChart() {
     this.chartVisible = false;
-    this.chartJsService.setChartData(this.chartJsService.getEmptyDataSet(""));
+    this.chartjsService.setChartData(this.chartjsService.getEmptyDataSet(""));
   }
 
   private hideStringDisplay() {
     this.stringDisplayVisible = false;
-    this.stringDisplayContent = "";
+    this.stringValues = [];
   }
 
   private hideMessageBox() {
@@ -194,6 +194,47 @@ class HistoricalValuesDisplayController {
     this.hideMessageBox();
     this.stringDisplayVisible = true;
   }
+}
+
+
+class StringPropertyFormatter {
+  static format(values: Array<object>): Array<StringValue> {
+    var dateFormatter = new DatetimeFormatterService();
+    let result: Array<StringValue> = [];
+    values.forEach(n => {
+      result.push(new StringValue(dateFormatter.getReadableDate(n['Timestamp']), n['PropertyValue']));
+      // result += `<b>${dateFormatter.getReadableDate(n['Timestamp'])}</b>: ${n['PropertyValue']}<br>`;
+    });
+
+    return result;
+  }
+}
+
+
+class StringValue {
+
+  constructor(timestamp: string, content: string) {
+    this.timestamp = timestamp;
+    this.content = content;
+  }
+  
+  private _timestamp : string;
+  public get timestamp() : string {
+    return this._timestamp;
+  }
+  public set timestamp(v : string) {
+    this._timestamp = v;
+  }
+  
+  
+  private _content : string;
+  public get content() : string {
+    return this._content;
+  }
+  public set content(v : string) {
+    this._content = v;
+  }
+  
 }
 
 class MessageContent {
