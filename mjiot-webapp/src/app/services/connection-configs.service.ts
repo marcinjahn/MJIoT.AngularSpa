@@ -32,9 +32,9 @@ export class ConnectionConfigsService {
   getCalculationTypes(senderFormat: number): Array<ConnectionConfigType> {
     let result: Array<ConnectionConfigType> = [];
 
+    result.push(ConnectionCalculation.None);
     //number
     if (senderFormat == 2) {
-      result.push(ConnectionCalculation.None);
       result.push(ConnectionCalculation.Addition);
       result.push(ConnectionCalculation.Subtraction);
       result.push(ConnectionCalculation.Product);
@@ -42,15 +42,16 @@ export class ConnectionConfigsService {
     }
     //boolean
     else if (senderFormat == 0) {
-      result.push(ConnectionCalculation.None);
       result.push(ConnectionCalculation.BooleanNot);
       result.push(ConnectionCalculation.BooleanAnd);
       result.push(ConnectionCalculation.BooleanOr);
     }
     //string
     else if (senderFormat == 1) {
-      result.push(ConnectionCalculation.None);
+
     }
+
+    result.push(ConnectionCalculation.Custom);
 
     return result;
   }

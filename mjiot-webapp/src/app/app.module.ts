@@ -72,14 +72,17 @@ const routes: Routes = [
     {
       provide: AuthenticationApiUrl,
       useValue: "http://localhost:52805/api/token/"
+      // useValue: "http://192.168.1.105:3002/api/token/"
     },
     {
       provide: WebAPIUrl,
       useValue: "http://localhost:53927/api/Devices/"
+      // useValue: "http://192.168.1.105:3001/api/Devices/"
     },
     {
       provide: PropertiesAPIUrl,
       useValue: "http://localhost:3000/api/"
+      // useValue: "http://192.168.1.105:3000/api/"
     },
   ],
   bootstrap: [AppComponent]
