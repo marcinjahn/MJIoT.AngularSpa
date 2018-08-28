@@ -21,7 +21,6 @@
 
   <td>
     <div class="ui large label" [ngClass]="{'green': connection.Calculation != 0}">
-      <!-- <span *ngIf="connection.Calculation == 0">Proportional</span> -->
       <span *ngIf="connection.Calculation == 0">None</span>
       <span *ngIf="connection.Calculation == 1">+</span>
       <span *ngIf="connection.Calculation == 2">-</span>
@@ -30,7 +29,7 @@
       <span *ngIf="connection.Calculation == 5">NOT</span>
       <span *ngIf="connection.Calculation == 6">AND</span>
       <span *ngIf="connection.Calculation == 7">OR</span>
-
+      <span *ngIf="connection.Calculation == 8">y = </span>
       <div class="detail" *ngIf="connection.Calculation != 0">
         <span>{{connection.CalculationValue}}</span>
       </div>

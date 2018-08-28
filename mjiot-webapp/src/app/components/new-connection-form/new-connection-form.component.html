@@ -41,13 +41,14 @@
   
       <h4 class="ui dividing header">Filter</h4>
       <div class="two fields" formGroupName="filter">
-        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+          <!-- [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}" -->
+        <div class="field" >
           <label>Type</label>
           <select class="ui fluid dropdown" formControlName="type">
             <option *ngFor="let filterType of filterTypes" [ngValue]="filterType">{{filterType.displayName}}</option>
           </select>
         </div>
-        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+        <div class="field">
           <label>Value</label>
           <div class="ui input" [ngClass]="{'disabled': filterType.value.enumValue == 0}">
             <input type="text" formControlName="value">
@@ -57,13 +58,13 @@
   
       <h4 class="ui dividing header">Calculation</h4>
       <div class="two fields" formGroupName="calculation">
-        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+        <div class="field">
           <label>Type</label>
           <select class="ui fluid dropdown" formControlName="type">
             <option *ngFor="let calculationType of calculationTypes" [ngValue]="calculationType">{{calculationType.displayName}}</option>
           </select>
         </div>
-        <div class="field" [ngClass]="{'disabled': !devicesAndPropertiesAreSelected()}">
+        <div class="field">
           <label>Value</label>
           <div class="ui input" [ngClass]="{'disabled': calculationType.value.enumValue == 0}">
             <input type="text" formControlName="value">

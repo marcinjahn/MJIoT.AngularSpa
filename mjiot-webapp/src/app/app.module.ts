@@ -71,8 +71,8 @@ const routes: Routes = [
     },
     {
       provide: AuthenticationApiUrl,
-      useValue: "http://localhost:52805/api/token/"
-      // useValue: "http://192.168.1.105:3002/api/token/"
+      // useValue: "http://localhost:52805/api/token/"
+      useValue: "http://192.168.1.105:3002/api/token/"
     },
     {
       provide: WebAPIUrl,
