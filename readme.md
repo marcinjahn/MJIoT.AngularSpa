@@ -6,12 +6,12 @@ This project is a web application done as a reference implementation of client a
 * see properties of devices (to be done)
 
 ## Technologies
-NodeJS
-Angular 5
-TypeScript
-SemanticUI
+- NodeJS
+- Angular 5
+- TypeScript
+- SemanticUI
 
 ## Dependencies
-MJIoT Web API
-MJIoT Token Issuer API
-MJIoT Properties API
+- MJIoT Web API
+- MJIoT Token Issuer API
+- MJIoT Properties API
